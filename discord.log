@@ -1,0 +1,1978 @@
+[2025-12-11 21:37:28] [INFO    ] discord.client: logging in using static token
+[2025-12-11 21:37:28] [DEBUG   ] discord.http: GET https://discord.com/api/v10/users/@me with None has returned 200
+[2025-12-11 21:37:28] [DEBUG   ] discord.http: GET /users/@me has found its initial rate limit bucket hash (78bb8553d9352a5a2f89f9def401287a).
+[2025-12-11 21:37:28] [DEBUG   ] discord.http: GET https://discord.com/api/v10/users/@me has received {'id': '1431783598314356927', 'username': 'Tiny Regg V2', '2025-12-11 21:37:28,374 DEBUG:discord.http: GET https://discord.com/api/v10/users/@me has received {'id': '1431783598314356927', 'username': 'Tiny Regg V2', 'avatar': None, 'discriminator': '8241', 'public_flags': 0, 'flags': 0, 'bot': True, 'banner': None, 'accent_color': None, 'global_name': None, 'avatar_decoration_data': None, 'collectibles': None, 'display_name_styles': None, 'bann[2025-12-11 21:37:28] [DEBUG   ] discord.http: GET https://discord.com/api/v10/oauth2/applications/@me with None has returned 200
+[2025-12-11 21:37:28] [DEBUG   ] discord.http: GET /oauth2/applications/@me has found its initial rate limit bucket hash (d28a133af187e91d71d96a223467ce49)202[2025-12-11 21:37:28] [DEBUG   ] discord.http: GET https://discord.com/api/v10/oauth2/applications/@me has received {'id': '1431783598314356927', 'name'2025-12-11 21:37:28,548 DEBUG:discord.http: GET https://discord.com/api/v10/oauth2/applications/@me has received {'id': '1431783598314356927', 'name': 'Tiny Regg V2', 'icon': None, 'description': '', 'type': None, 'bot': {'id': '1431783598314356927', 'username': 'Tiny Regg V2', 'avatar': None, 'discriminator': '8241', 'public_flags': 0, 'flags': 0, 'bot': True, 'banner': None, 'accent_color': None, 'global_name': None, 'avatar_decoration_data': None, 'collectibles': None, 'display_name_styles': None, 'banner_color': None, 'clan': None, 'primary_guild': None}, 'summary': '', 'is_monetized': False, 'is_verified': False, 'is_discoverable': False, 'bot_public': True, 'bot_require_code_grant': False, 'install_params': {'scopes': ['bot', 'applications.commands'], 'permissions': '8'}, 'integration_types_config': {'0': {'oauth2_install_params': {'scopes': ['bot', 'applications.commands'], 'permissions': '8'}}, '1': {'oauth2_install_params': {'scopes': ['applications.commands'], 'permissions': '0'}}}, 'verify_key': '67255f24452474ed8d19d8cfd6ea86a4bea117cd7f03aab1cbb39c2692752154', 'flags': 42508288, 'hook': True, 'storefront_available': False, 'redirect_uris': [], 'interactions_endpoint_url': None, 'role_connections_verification_url': None, 'owner': {'id': '160258339450781696', 'username': 'kingazarel', 'avatar': 'fdbfa0b66390d149855784ce977cf415', 'discriminator': '0', 'public_flags': 0, 'flags': 0, 'banner': '307fbb089b5fe6192bb1a00eb86e54a8', 'accent_color': 1245220, 'global_name': 'Yllis Reboog', 'avatar_decoration_data': {'asset': 'a_9532e6bc08133eb1401c654a4f1a800e', 'sku_id': '1332505467980873728', 'expires_at': None}, 'collectibles': {'nameplate': {'sku_id': '1377377712104018071', 'asset': 'nameplates/nameplates_v2/starfall_tides/', 'label': 'COLLECTIBLES_NAMEPLATES_V2_STARFALL_TIDES_A11Y', 'palette': 'teal'}}, 'display_name_styles': {'font_id': 12, 'effect_id': 4, 'colors': [16777215]}, 'banner_color': '#130024', 'clan': {'identity_guild_id': '235562862402207744', 'identity_enabled': True, 'tag': '\u2169\u2162', 'badge': '80e5e6bdbdd81e95b650670b2afba2cc'}, 'primary_guild': {'identity_guild_id': '235562862402207744', 'identity_enabled': True, 'tag': '\u2169\u2162', 'badge': '80e5e6bdbdd81e95b650670b2afba2cc'}}, 'approximate_guild_count': 1, 'approximate_user_install_count': 1, 'approximate_user_authorization_count': 1, 'interactions_event_types': [], 'interactions_version': 1, 'explicit_content_filter': 0, 'rpc_application_state': 0, 'store_application_state': 1, 'verification_state': 1, 'integration_public': True, 'integration_require_code_grant': False, 'discoverability_state': 1, 'discovery_eligibility_flags': 2528, 'monetization_state': 1, 'verification_eligibility_flags': 123804, 'monetization_eligibility_flags': 247524, 'bot_approximate_guild_count': 1, 'team': None, 'internal_guild_restriction': 2, 'approved_consoles': [], 'pricing_localization_strategy': 'localized_price_sets'}
+2025-12-13 14:35:48,742 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:35:48,742 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:35:48,744 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:35:48,744 INFO:discord.client: logging in using static token
+2025-12-13 14:35:49,178 INFO:tinyregg: Database initialized
+2025-12-13 14:35:49,184 ERROR:tinyregg: Failed to load cog cogs.boss: Extension 'cogs.boss' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 6, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.boss' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:35:49,202 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 14:35:49,204 ERROR:tinyregg: Failed to load cog cogs.history_cog: Extension 'cogs.history_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\history_cog.py", line 6, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.history_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:35:49,208 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 14:35:49,209 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 14:35:49,212 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:35:49,214 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 14:35:49,214 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 14:35:49,214 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 14:35:49,216 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 14:35:49,220 INFO:tinyregg: Loaded cog: cogs.presence
+2025-12-13 14:35:49,226 INFO:tinyregg: Loaded cog: cogs.presence_listener
+2025-12-13 14:35:49,229 ERROR:tinyregg: Failed to load cog cogs.p_introduce: Extension 'cogs.p_introduce' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\p_introduce.py", line 7, in <module>
+    from core.presence import emit_presence_changed, switch_active_person
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.p_introduce' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:35:49,233 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 14:35:49,235 ERROR:tinyregg: Failed to load cog cogs.shop_cog: Extension 'cogs.shop_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\shop_cog.py", line 5, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.shop_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:35:49,238 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 14:35:49,240 ERROR:tinyregg: Failed to load cog cogs.stats: Extension 'cogs.stats' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\stats.py", line 7, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.stats' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:35:49,244 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 6, in <module>
+    from core.task_engine import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+2025-12-13 14:35:49,589 INFO:tinyregg: Slash commands synced
+2025-12-13 14:35:49,828 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 295a0a5e94512451a5bb0fc355fbbaf2).
+2025-12-13 14:36:40,399 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:36:40,399 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:36:40,400 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:36:40,400 INFO:discord.client: logging in using static token
+2025-12-13 14:36:40,830 INFO:tinyregg: Database initialized
+2025-12-13 14:36:40,833 ERROR:tinyregg: Failed to load cog cogs.boss: Extension 'cogs.boss' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 6, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.boss' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:36:40,835 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 14:36:40,836 ERROR:tinyregg: Failed to load cog cogs.history_cog: Extension 'cogs.history_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\history_cog.py", line 6, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.history_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:36:40,838 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 14:36:40,838 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 14:36:40,839 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:36:40,841 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 14:36:40,841 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 14:36:40,841 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 14:36:40,842 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 14:36:40,843 INFO:tinyregg: Loaded cog: cogs.presence
+2025-12-13 14:36:40,845 INFO:tinyregg: Loaded cog: cogs.presence_listener
+2025-12-13 14:36:40,845 ERROR:tinyregg: Failed to load cog cogs.p_introduce: Extension 'cogs.p_introduce' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\p_introduce.py", line 7, in <module>
+    from core.presence import emit_presence_changed, switch_active_person
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.p_introduce' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:36:40,847 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 14:36:40,848 ERROR:tinyregg: Failed to load cog cogs.shop_cog: Extension 'cogs.shop_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\shop_cog.py", line 5, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.shop_cog' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:36:40,850 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 14:36:40,850 ERROR:tinyregg: Failed to load cog cogs.stats: Extension 'cogs.stats' raised an error: ModuleNotFoundError: No module named 'core.presence'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\stats.py", line 7, in <module>
+    from core.presence import get_active_profile
+ModuleNotFoundError: No module named 'core.presence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.stats' raised an error: ModuleNotFoundError: No module named 'core.presence'
+2025-12-13 14:36:40,852 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 6, in <module>
+    from core.task_engine import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+2025-12-13 14:36:41,232 INFO:tinyregg: Slash commands synced
+2025-12-13 14:36:41,579 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 724a11a967b81d9d32054aa95c2a9442).
+2025-12-13 14:38:36,804 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:38:36,804 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:38:36,805 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:38:36,805 INFO:discord.client: logging in using static token
+2025-12-13 14:38:37,264 INFO:tinyregg: Database initialized
+2025-12-13 14:38:37,269 ERROR:tinyregg: Failed to load cog cogs.boss: Extension 'cogs.boss' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 6, in <module>
+    from core.presence import get_active_profile
+ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.boss' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:38:37,272 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 14:38:37,273 ERROR:tinyregg: Failed to load cog cogs.history_cog: Extension 'cogs.history_cog' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\history_cog.py", line 6, in <module>
+    from core.presence import get_active_profile
+ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.history_cog' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:38:37,275 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 14:38:37,275 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 14:38:37,276 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:38:37,279 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 14:38:37,279 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 14:38:37,279 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 14:38:37,281 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 14:38:37,282 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 14:38:37,283 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 14:38:37,284 ERROR:tinyregg: Failed to load cog cogs.shop_cog: Extension 'cogs.shop_cog' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\shop_cog.py", line 5, in <module>
+    from core.presence import get_active_profile
+ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.shop_cog' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:38:37,287 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 14:38:37,287 ERROR:tinyregg: Failed to load cog cogs.stats: Extension 'cogs.stats' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\stats.py", line 7, in <module>
+    from core.presence import get_active_profile
+ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.stats' raised an error: ImportError: cannot import name 'get_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:38:37,290 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 6, in <module>
+    from core.task_engine import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'get_tasks_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+2025-12-13 14:38:37,557 INFO:tinyregg: Slash commands synced
+2025-12-13 14:38:37,841 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: dfc356b2889c9ea9e0466593e7c96feb).
+2025-12-13 14:42:15,326 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:42:15,326 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:42:15,327 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:42:15,327 INFO:discord.client: logging in using static token
+2025-12-13 14:42:15,760 INFO:tinyregg: Database initialized
+2025-12-13 14:42:15,767 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 14:42:15,768 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 14:42:15,769 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 14:42:15,770 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 14:42:15,770 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 14:42:15,771 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:42:15,774 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 14:42:15,774 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 14:42:15,774 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 14:42:15,774 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 14:42:15,775 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 14:42:15,776 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 14:42:15,790 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 14:42:15,791 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 14:42:15,792 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 14:42:15,797 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'complete_task_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 6, in <module>
+    from core.task_engine import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'complete_task_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'complete_task_for_profile' from 'core.task_engine' (C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py)
+2025-12-13 14:42:16,216 INFO:tinyregg: Slash commands synced
+2025-12-13 14:42:16,566 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: c1f9fac9b81d47eb674bf19d5c5e4fdc).
+2025-12-13 14:42:18,587 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 14:46:12,787 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 14:46:15,388 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:46:15,388 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:46:15,388 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:46:15,388 INFO:discord.client: logging in using static token
+2025-12-13 14:46:15,902 INFO:tinyregg: Database initialized
+2025-12-13 14:46:15,907 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 14:46:15,907 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 14:46:15,908 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 14:46:15,909 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 14:46:15,910 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 14:46:15,910 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:46:15,913 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 14:46:15,913 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 14:46:15,913 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 14:46:15,914 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 14:46:15,915 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 14:46:15,916 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 14:46:15,919 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 14:46:15,919 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 14:46:15,920 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 14:46:15,924 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ModuleNotFoundError: No module named 'core.theming'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 11, in <module>
+    from core.theming import inject_names
+ModuleNotFoundError: No module named 'core.theming'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ModuleNotFoundError: No module named 'core.theming'
+2025-12-13 14:46:16,177 INFO:tinyregg: Slash commands synced
+2025-12-13 14:46:16,391 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 110e19e7fd61030c3cea2674051c4c6a).
+2025-12-13 14:46:18,428 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 14:49:12,208 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 14:49:14,030 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:49:14,030 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:49:14,031 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:49:14,031 INFO:discord.client: logging in using static token
+2025-12-13 14:49:14,487 INFO:tinyregg: Database initialized
+2025-12-13 14:49:14,496 ERROR:tinyregg: Failed to load cog cogs.boss: Extension 'cogs.boss' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 6, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.boss' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,502 ERROR:tinyregg: Failed to load cog cogs.help: Extension 'cogs.help' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\help.py", line 5, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.help' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,506 ERROR:tinyregg: Failed to load cog cogs.history_cog: Extension 'cogs.history_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\history_cog.py", line 6, in <module>
+    from core.presence import get_active_profile
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.history_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,510 ERROR:tinyregg: Failed to load cog cogs.milestones: Extension 'cogs.milestones' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\milestones.py", line 7, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.milestones' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,514 ERROR:tinyregg: Failed to load cog cogs.mycodes_cog: Extension 'cogs.mycodes_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\mycodes_cog.py", line 6, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.mycodes_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,518 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,522 ERROR:tinyregg: Failed to load cog cogs.owner: Extension 'cogs.owner' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\owner.py", line 7, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.owner' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,525 ERROR:tinyregg: Failed to load cog cogs.pending_rewards_cog: Extension 'cogs.pending_rewards_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\pending_rewards_cog.py", line 6, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.pending_rewards_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,529 ERROR:tinyregg: Failed to load cog cogs.p_introduce: Extension 'cogs.p_introduce' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\p_introduce.py", line 7, in <module>
+    from core.presence import emit_presence_changed, switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.p_introduce' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,534 ERROR:tinyregg: Failed to load cog cogs.reminders: Extension 'cogs.reminders' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\reminders.py", line 7, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.reminders' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,538 ERROR:tinyregg: Failed to load cog cogs.shop_cog: Extension 'cogs.shop_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\shop_cog.py", line 5, in <module>
+    from core.presence import get_active_profile
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.shop_cog' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,542 ERROR:tinyregg: Failed to load cog cogs.start: Extension 'cogs.start' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\start.py", line 7, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.start' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,549 ERROR:tinyregg: Failed to load cog cogs.stats: Extension 'cogs.stats' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\stats.py", line 7, in <module>
+    from core.presence import get_active_profile
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.stats' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,557 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 6, in <module>
+    from core.task_engine import (
+    ...<3 lines>...
+    )
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\task_engine.py", line 4, in <module>
+    from core.presence import switch_active_person
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ImportError: cannot import name 'switch_active_person' from partially initialized module 'core.presence' (most likely due to a circular import) (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:49:14,788 INFO:tinyregg: Slash commands synced
+2025-12-13 14:49:15,241 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 7b8cbce2030637b1be3592c1845fd462).
+2025-12-13 14:56:46,084 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:56:46,084 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:56:46,085 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:56:46,086 INFO:discord.client: logging in using static token
+2025-12-13 14:56:46,515 INFO:tinyregg: Database initialized
+2025-12-13 14:56:46,523 ERROR:tinyregg: Failed to load cog cogs.boss: Extension 'cogs.boss' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 6, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.boss' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,525 ERROR:tinyregg: Failed to load cog cogs.help: Extension 'cogs.help' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\help.py", line 5, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.help' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,527 ERROR:tinyregg: Failed to load cog cogs.history_cog: Extension 'cogs.history_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\history_cog.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.history_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,529 ERROR:tinyregg: Failed to load cog cogs.milestones: Extension 'cogs.milestones' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\milestones.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.milestones' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,530 ERROR:tinyregg: Failed to load cog cogs.mycodes_cog: Extension 'cogs.mycodes_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\mycodes_cog.py", line 6, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.mycodes_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,532 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_active_profile' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,534 ERROR:tinyregg: Failed to load cog cogs.owner: Extension 'cogs.owner' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\owner.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.owner' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,538 ERROR:tinyregg: Failed to load cog cogs.pending_rewards_cog: Extension 'cogs.pending_rewards_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\pending_rewards_cog.py", line 6, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.pending_rewards_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,540 ERROR:tinyregg: Failed to load cog cogs.p_introduce: Extension 'cogs.p_introduce' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\p_introduce.py", line 7, in <module>
+    from core.presence import emit_presence_changed, switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.p_introduce' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,541 ERROR:tinyregg: Failed to load cog cogs.reminders: Extension 'cogs.reminders' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\reminders.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.reminders' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,545 ERROR:tinyregg: Failed to load cog cogs.shop_cog: Extension 'cogs.shop_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\shop_cog.py", line 8, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.shop_cog' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,547 ERROR:tinyregg: Failed to load cog cogs.start: Extension 'cogs.start' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\start.py", line 7, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.start' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,549 ERROR:tinyregg: Failed to load cog cogs.stats: Extension 'cogs.stats' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\stats.py", line 8, in <module>
+    from core.presence import switch_active_person
+ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.stats' raised an error: ImportError: cannot import name 'switch_active_person' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:56:46,555 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ModuleNotFoundError: No module named 'core.theming'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 11, in <module>
+    from core.theming import inject_names
+ModuleNotFoundError: No module named 'core.theming'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ModuleNotFoundError: No module named 'core.theming'
+2025-12-13 14:56:46,714 INFO:tinyregg: Slash commands synced
+2025-12-13 14:56:46,981 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: f56d23b24099c9ac6885c8c73a9e9cea).
+2025-12-13 14:58:02,593 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 14:58:02,594 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 14:58:02,594 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 14:58:02,595 INFO:discord.client: logging in using static token
+2025-12-13 14:58:03,009 INFO:tinyregg: Database initialized
+2025-12-13 14:58:03,014 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 14:58:03,015 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 14:58:03,015 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 14:58:03,016 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 14:58:03,017 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 14:58:03,018 ERROR:tinyregg: Failed to load cog cogs.optin: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_cloudy_mode' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\optin.py", line 6, in <module>
+    from core.presence import (
+    ...<3 lines>...
+    )
+ImportError: cannot import name 'set_cloudy_mode' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.optin' raised an error: ImportError: cannot import name 'set_cloudy_mode' from 'core.presence' (C:\Users\reyve\PycharmProjects\TinyRegg\core\presence.py)
+2025-12-13 14:58:03,020 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 14:58:03,020 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 14:58:03,020 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 14:58:03,021 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 14:58:03,022 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 14:58:03,023 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 14:58:03,025 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 14:58:03,025 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 14:58:03,027 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 14:58:03,028 ERROR:tinyregg: Failed to load cog cogs.tasks: Extension 'cogs.tasks' raised an error: ModuleNotFoundError: No module named 'core.theming'
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\tasks.py", line 11, in <module>
+    from core.theming import inject_names
+ModuleNotFoundError: No module named 'core.theming'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.tasks' raised an error: ModuleNotFoundError: No module named 'core.theming'
+2025-12-13 14:58:03,356 INFO:tinyregg: Slash commands synced
+2025-12-13 14:58:03,607 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 6a7732dccbc5cf32b1fb54c62bbdc98e).
+2025-12-13 14:58:05,614 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:00:55,612 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:00:57,225 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 15:00:57,225 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:00:57,225 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:00:57,226 INFO:discord.client: logging in using static token
+2025-12-13 15:00:57,620 INFO:tinyregg: Database initialized
+2025-12-13 15:00:57,627 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:00:57,628 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:00:57,629 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:00:57,629 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:00:57,630 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:00:57,631 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:00:57,632 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:00:57,632 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:00:57,632 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:00:57,633 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:00:57,634 ERROR:tinyregg: Failed to load cog cogs.p_introduce: Extension 'cogs.p_introduce' raised an error: CommandAlreadyRegistered: Command 'p_introduce' already registered.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 963, in _load_from_module_spec
+    await setup(self)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\p_introduce.py", line 207, in setup
+    await bot.add_cog(Introduce(bot))
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 799, in add_cog
+    cog = await cog._inject(self, override=override, guild=guild, guilds=guilds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\cog.py", line 745, in _inject
+    bot.tree.add_command(command, override=override, guild=guild, guilds=guilds)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\app_commands\tree.py", line 407, in add_command
+    raise CommandAlreadyRegistered(name, None)
+discord.app_commands.errors.CommandAlreadyRegistered: Command 'p_introduce' already registered.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 968, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.p_introduce' raised an error: CommandAlreadyRegistered: Command 'p_introduce' already registered.
+2025-12-13 15:00:57,663 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:00:57,666 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:00:57,667 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:00:57,668 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:00:57,672 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:00:58,009 INFO:tinyregg: Slash commands synced
+2025-12-13 15:00:58,275 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 0068793c76021c89494e83320aa91d0b).
+2025-12-13 15:01:00,280 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:01:28,712 INFO:cogs.owner: [RESYNC] triggered by kingazarel (160258339450781696)
+2025-12-13 15:01:28,712 INFO:cogs.owner: [RESYNC] commands before sync: ['help', 'history', 'add_milestone', 'mycodes', 'p_help', 'p_introduce', 'p_switch', 'p_cloudy', 'p_edit', 'resync', 'pending_rewards', 'set_deadline', 'shop', 'buy', 'start', 'stats_today', 'stats_week', 'tasks', 'task_history']
+2025-12-13 15:01:28,884 ERROR:cogs.owner: [RESYNC] failed to sync commands
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\owner.py", line 34, in resync
+    synced = await self.bot.tree.sync(guild=guild_obj)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\app_commands\tree.py", line 1131, in sync
+    data = await self._http.bulk_upsert_guild_commands(self.client.application_id, guild.id, payload=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\http.py", line 756, in request
+    raise Forbidden(response, data)
+discord.errors.Forbidden: 403 Forbidden (error code: 50001): Missing Access
+2025-12-13 15:02:06,942 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:02:28,245 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 15:02:28,245 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:02:28,246 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:02:28,246 INFO:discord.client: logging in using static token
+2025-12-13 15:02:28,754 INFO:tinyregg: Database initialized
+2025-12-13 15:02:28,758 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:02:28,759 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:02:28,760 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:02:28,761 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:02:28,761 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:02:28,762 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:02:28,763 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:02:28,763 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:02:28,763 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:02:28,764 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:02:28,764 ERROR:tinyregg: Failed to load cog cogs.p_introduce: Extension 'cogs.p_introduce' raised an error: CommandAlreadyRegistered: Command 'p_introduce' already registered.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 963, in _load_from_module_spec
+    await setup(self)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\p_introduce.py", line 207, in setup
+    await bot.add_cog(Introduce(bot))
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 799, in add_cog
+    cog = await cog._inject(self, override=override, guild=guild, guilds=guilds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\cog.py", line 745, in _inject
+    bot.tree.add_command(command, override=override, guild=guild, guilds=guilds)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\app_commands\tree.py", line 407, in add_command
+    raise CommandAlreadyRegistered(name, None)
+discord.app_commands.errors.CommandAlreadyRegistered: Command 'p_introduce' already registered.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 968, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.p_introduce' raised an error: CommandAlreadyRegistered: Command 'p_introduce' already registered.
+2025-12-13 15:02:28,768 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:02:28,771 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:02:28,772 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:02:28,773 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:02:28,775 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:02:29,063 INFO:tinyregg: Slash commands synced
+2025-12-13 15:02:29,303 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: de814986a5bc57a46e95337293a52a95).
+2025-12-13 15:02:31,306 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:10:56,867 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:10:58,700 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 15:10:58,700 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:10:58,701 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:10:58,701 INFO:discord.client: logging in using static token
+2025-12-13 15:10:59,023 INFO:tinyregg: Database initialized
+2025-12-13 15:10:59,026 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:10:59,027 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:10:59,028 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:10:59,029 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:10:59,029 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:10:59,030 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:10:59,031 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:10:59,031 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:10:59,031 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:10:59,032 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:10:59,032 ERROR:tinyregg: Failed to load cog cogs.p_introduce: Extension 'cogs.p_introduce' raised an error: CommandAlreadyRegistered: Command 'p_introduce' already registered.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 963, in _load_from_module_spec
+    await setup(self)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\p_introduce.py", line 207, in setup
+    await bot.add_cog(Introduce(bot))
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 799, in add_cog
+    cog = await cog._inject(self, override=override, guild=guild, guilds=guilds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\cog.py", line 745, in _inject
+    bot.tree.add_command(command, override=override, guild=guild, guilds=guilds)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\app_commands\tree.py", line 407, in add_command
+    raise CommandAlreadyRegistered(name, None)
+discord.app_commands.errors.CommandAlreadyRegistered: Command 'p_introduce' already registered.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\main.py", line 57, in setup_hook
+    await self.load_extension(ext)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\commands\bot.py", line 968, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.p_introduce' raised an error: CommandAlreadyRegistered: Command 'p_introduce' already registered.
+2025-12-13 15:10:59,036 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:10:59,039 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:10:59,040 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:10:59,041 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:10:59,044 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:10:59,268 INFO:tinyregg: Slash commands synced
+2025-12-13 15:10:59,558 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 1a5a5f0175f1bf724066e5a36397f222).
+2025-12-13 15:11:01,569 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:21:06,845 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:21:08,389 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 15:21:08,389 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:21:08,390 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:21:08,390 INFO:discord.client: logging in using static token
+2025-12-13 15:21:08,798 INFO:tinyregg: Database initialized
+2025-12-13 15:21:08,802 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:21:08,803 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:21:08,804 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:21:08,805 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:21:08,805 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:21:08,809 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:21:08,810 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:21:08,810 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:21:08,810 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:21:08,811 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:21:08,812 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:21:08,813 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:21:08,815 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:21:08,816 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:21:08,817 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:21:08,819 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:21:09,215 INFO:tinyregg: Slash commands synced
+2025-12-13 15:21:09,651 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 3df29a3724c3dedfad25818f4a2d95d6).
+2025-12-13 15:21:11,659 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:25:42,031 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 46, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<5 lines>...
+        ((now - timedelta(days=7)).strftime("%Y-%m-%d"),),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:27:47,204 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 15:27:47,205 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:27:47,205 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:27:47,205 INFO:discord.client: logging in using static token
+2025-12-13 15:27:47,650 INFO:tinyregg: Database initialized
+2025-12-13 15:27:47,655 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:27:47,656 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:27:47,657 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:27:47,658 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:27:47,658 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:27:47,659 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:27:47,660 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:27:47,660 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:27:47,660 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:27:47,661 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:27:47,662 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:27:47,663 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:27:47,665 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:27:47,666 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:27:47,667 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:27:47,669 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:27:48,078 INFO:tinyregg: Slash commands synced
+2025-12-13 15:27:48,312 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 043112c6dd79be2a72fcb14bfba73dfd).
+2025-12-13 15:27:50,322 ERROR:discord.ext.tasks: Unhandled exception in internal background task 'weekly_check'.
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 37, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<6 lines>...
+        (since,),
+        ^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:29:10,124 ERROR:asyncio: Task exception was never retrieved
+future: <Task finished name='discord-ext-tasks: BossCog.weekly_check' coro=<Loop._loop() done, defined at C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py:207> exception=OperationalError('no such column: profile_id')>
+Traceback (most recent call last):
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 271, in _loop
+    raise exc
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\.venv\Lib\site-packages\discord\ext\tasks\__init__.py", line 246, in _loop
+    await self.coro(*args, **kwargs)
+  File "C:\Users\reyve\PycharmProjects\TinyRegg\cogs\boss.py", line 37, in weekly_check
+    cur.execute(
+    ~~~~~~~~~~~^
+        """
+        ^^^
+    ...<6 lines>...
+        (since,),
+        ^^^^^^^^^
+    )
+    ^
+sqlite3.OperationalError: no such column: profile_id
+2025-12-13 15:29:25,532 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 15:29:25,532 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:29:25,533 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:29:25,533 INFO:discord.client: logging in using static token
+2025-12-13 15:29:25,970 INFO:tinyregg: Database initialized
+2025-12-13 15:29:25,973 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:29:25,974 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:29:25,974 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:29:25,976 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:29:25,977 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:29:25,978 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:29:25,979 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:29:25,980 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:29:25,980 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:29:25,981 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:29:25,982 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:29:25,983 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:29:25,985 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:29:25,986 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:29:25,986 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:29:25,988 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:29:26,244 INFO:tinyregg: Slash commands synced
+2025-12-13 15:29:26,644 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 0df9519a253b79ed930324364f472cdd).
+2025-12-13 15:33:09,088 WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2025-12-13 15:33:09,088 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:33:09,089 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:33:09,089 INFO:discord.client: logging in using static token
+2025-12-13 15:33:09,763 INFO:tinyregg: Database initialized
+2025-12-13 15:33:09,766 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:33:09,768 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:33:09,768 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:33:09,769 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:33:09,770 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:33:09,771 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:33:09,771 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:33:09,771 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:33:09,771 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:33:09,772 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:33:09,773 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:33:09,774 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:33:09,776 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:33:09,777 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:33:09,778 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:33:09,780 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:33:10,065 INFO:tinyregg: Slash commands synced
+2025-12-13 15:33:10,320 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 174f0b86dedbfa941abda8ac3b3de856).
+2025-12-13 15:35:27,119 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:35:27,120 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:35:27,120 INFO:discord.client: logging in using static token
+2025-12-13 15:35:27,596 INFO:tinyregg: Database initialized
+2025-12-13 15:35:27,599 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:35:27,601 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:35:27,602 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:35:27,603 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:35:27,604 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:35:27,605 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:35:27,605 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:35:27,606 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:35:27,606 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:35:27,606 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:35:27,607 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:35:27,608 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:35:27,610 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:35:27,611 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:35:27,612 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:35:27,615 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:35:27,923 INFO:tinyregg: Slash commands synced
+2025-12-13 15:35:28,213 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 7845827350d0eabffe3e64e8e78e2b4f).
+2025-12-13 15:36:22,729 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:36:22,731 WARNING:discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+2025-12-13 15:36:22,731 INFO:discord.client: logging in using static token
+2025-12-13 15:36:23,096 INFO:tinyregg: Database initialized
+2025-12-13 15:36:23,099 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:36:23,101 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:36:23,101 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:36:23,102 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:36:23,103 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:36:23,104 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:36:23,105 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:36:23,105 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:36:23,105 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:36:23,105 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:36:23,106 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:36:23,107 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:36:23,109 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:36:23,110 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:36:23,111 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:36:23,114 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:36:23,350 INFO:tinyregg: Slash commands synced
+2025-12-13 15:36:23,599 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 4ca3d0c5ecdd8186d0c625d99147f53b).
+2025-12-13 15:38:44,323 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:38:44,323 INFO:discord.client: logging in using static token
+2025-12-13 15:38:44,752 INFO:tinyregg: Database initialized
+2025-12-13 15:38:44,755 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:38:44,756 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:38:44,757 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:38:44,758 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:38:44,758 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:38:44,759 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:38:44,760 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:38:44,760 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:38:44,760 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:38:44,761 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:38:44,762 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:38:44,763 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:38:44,766 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:38:44,766 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:38:44,767 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:38:44,769 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:38:45,043 INFO:tinyregg: Slash commands synced
+2025-12-13 15:38:45,627 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 3cfb895cb16e01bc11f13c43889a2fcd).
+2025-12-13 15:46:13,562 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:46:13,563 INFO:discord.client: logging in using static token
+2025-12-13 15:46:13,932 INFO:tinyregg: Database initialized
+2025-12-13 15:46:13,935 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:46:13,937 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:46:13,937 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:46:13,938 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:46:13,939 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:46:13,940 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:46:13,940 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:46:13,940 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:46:13,940 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:46:13,941 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:46:13,942 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:46:13,942 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:46:13,945 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:46:13,945 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:46:13,946 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:46:13,950 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:46:14,259 INFO:tinyregg: Slash commands synced
+2025-12-13 15:46:14,472 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 51d1e68aa39639345be4f7c9f5227fee).
+2025-12-13 15:54:38,766 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:54:38,767 INFO:discord.client: logging in using static token
+2025-12-13 15:54:39,259 INFO:tinyregg: Database initialized
+2025-12-13 15:54:39,261 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:54:39,262 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:54:39,263 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:54:39,263 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:54:39,264 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:54:39,265 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:54:39,266 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:54:39,266 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:54:39,266 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:54:39,267 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:54:39,268 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:54:39,270 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:54:39,272 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:54:39,274 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:54:39,275 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:54:39,278 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:54:40,010 INFO:tinyregg: Slash commands synced
+2025-12-13 15:54:40,231 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: 8224c8226be8d090af2f8448bf1fdc77).
+2025-12-13 15:54:42,252 INFO:tinyregg: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2025-12-13 15:54:42,253 INFO:tinyregg: 🤖 TinyRegg is ONLINE
+2025-12-13 15:54:42,253 INFO:tinyregg: Connected as: TinyRegg V3#1325 (ID: 1449513670009815141)
+2025-12-13 15:54:42,253 INFO:tinyregg: Guilds: 1
+2025-12-13 15:54:42,253 INFO:tinyregg: System state: STABLE
+2025-12-13 15:54:42,253 INFO:tinyregg: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2025-12-13 15:55:30,610 INFO:tinyregg: Starting TinyRegg...
+2025-12-13 15:55:30,611 INFO:discord.client: logging in using static token
+2025-12-13 15:55:31,049 INFO:tinyregg: Database initialized
+2025-12-13 15:55:31,053 INFO:tinyregg: Loaded cog: cogs.boss
+2025-12-13 15:55:31,054 INFO:tinyregg: Loaded cog: cogs.help
+2025-12-13 15:55:31,055 INFO:tinyregg: Loaded cog: cogs.history_cog
+2025-12-13 15:55:31,056 INFO:tinyregg: Loaded cog: cogs.milestones
+2025-12-13 15:55:31,056 INFO:tinyregg: Loaded cog: cogs.mycodes_cog
+2025-12-13 15:55:31,057 INFO:tinyregg: Loaded cog: cogs.optin
+2025-12-13 15:55:31,058 INFO:cogs.owner: [OwnerCog] setup() adding cog
+2025-12-13 15:55:31,058 INFO:cogs.owner: [OwnerCog] initialized
+2025-12-13 15:55:31,058 INFO:tinyregg: Loaded cog: cogs.owner
+2025-12-13 15:55:31,059 INFO:tinyregg: Loaded cog: cogs.pending_rewards_cog
+2025-12-13 15:55:31,060 INFO:tinyregg: Loaded cog: cogs.p_introduce
+2025-12-13 15:55:31,061 INFO:tinyregg: Loaded cog: cogs.reminders
+2025-12-13 15:55:31,063 INFO:tinyregg: Loaded cog: cogs.shop_cog
+2025-12-13 15:55:31,064 INFO:tinyregg: Loaded cog: cogs.start
+2025-12-13 15:55:31,065 INFO:tinyregg: Loaded cog: cogs.stats
+2025-12-13 15:55:31,068 INFO:tinyregg: Loaded cog: cogs.tasks
+2025-12-13 15:55:31,402 INFO:tinyregg: Slash commands synced
+2025-12-13 15:55:31,640 INFO:discord.gateway: Shard ID None has connected to Gateway (Session ID: b77bd49824129e4f6dd840610780ce90).
+2025-12-13 15:55:33,654 INFO:tinyregg: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2025-12-13 15:55:33,654 INFO:tinyregg: 🤖 TinyRegg is ONLINE
+2025-12-13 15:55:33,654 INFO:tinyregg: Connected as: TinyRegg V3#1325 (ID: 1449513670009815141)
+2025-12-13 15:55:33,654 INFO:tinyregg: Guilds: 1
+2025-12-13 15:55:33,654 INFO:tinyregg: System state: STABLE
+2025-12-13 15:55:33,654 INFO:tinyregg: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
