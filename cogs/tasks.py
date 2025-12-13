@@ -60,7 +60,12 @@ class TaskButton(discord.ui.Button):
         )
 
         profile = get_active_profile(str(interaction.user.id))
-        tasks = get_tasks_for_profile(profile["profile_id"])
+        from datetime import date
+
+        tasks = get_tasks_for_profile(
+            profile["profile_id"],
+            date.today().isoformat()
+        )
 
         embed, view = build_tasks_embed_and_view(
             interaction.user.id,
