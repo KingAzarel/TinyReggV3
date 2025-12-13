@@ -8,6 +8,7 @@ from discord import app_commands
 from dotenv import load_dotenv
 
 from core.db import initialize_db
+from core import admin_services
 from core.presence import get_active_profile
 from utils import BOT_OWNER_ID, MAIN_GUILD_ID
 
@@ -39,7 +40,8 @@ CLOUDY_ACTIVITY = discord.Activity(
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
-    raise RuntimeError("Missing DISCORD_TOKEN in .env")
+    raise RuntimeError("Missing DISCORD_TOKEN environment variable")
+
 
 # ─────────────────────────────────────────────────────────────
 # LOGGING
@@ -95,6 +97,17 @@ class MyBot(commands.Bot):
         log.info("Slash commands synced")
 
 bot = MyBot()
+
+# ─────────────────────────────────────────────────────────────
+# ADMIN SERVICE WIRING
+# ─────────────────────────────────────────────────────────────
+
+bot.dispatch_daily_tasks = admin_services.dispatch_daily_tasks
+bot.force_daily_reset = admin_services.force_daily_reset
+bot.reset_user_state = admin_services.reset_user_state
+bot.set_user_streak = admin_services.set_user_streak
+bot.add_tokens = admin_services.add_tokens
+bot.remove_tokens = admin_services.remove_tokens
 
 # ─────────────────────────────────────────────────────────────
 # GLOBAL APP COMMAND ERROR HANDLER
