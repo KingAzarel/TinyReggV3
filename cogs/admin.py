@@ -9,6 +9,7 @@ from core.presence import get_active_profile
 from core.task_sender import send_tasks_to_user
 
 
+
 logger = logging.getLogger("tinyregg.admin")
 
 
