@@ -347,3 +347,30 @@ def complete_task_for_profile(profile_id: int, task_key: str) -> bool:
     conn.commit()
     conn.close()
     return True
+
+def regenerate_daily_tasks(profile_id: int):
+    """
+    Force-regenerates today's tasks for a profile.
+    Safe to call manually (admin, onboarding, recovery).
+    """
+
+    today = _today()
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    # Remove today's assigned tasks
+    cur.execute(
+        """
+        DELETE FROM assigned_tasks
+        WHERE profile_id = ?
+          AND date = ?
+        """,
+        (profile_id, today),
+    )
+
+    conn.commit()
+    conn.close()
+
+    # Re-run generation
+    return generate_daily_tasks(profile_id)

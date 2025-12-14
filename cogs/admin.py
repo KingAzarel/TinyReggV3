@@ -4,6 +4,11 @@ import logging
 from discord.ext import commands
 from utils import BOT_OWNER_ID
 
+from core.task_engine import regenerate_daily_tasks
+from core.presence import get_active_profile
+from core.task_sender import send_tasks_to_user
+
+
 logger = logging.getLogger("tinyregg.admin")
 
 
@@ -150,6 +155,37 @@ class AdminCog(commands.Cog):
         await ctx.send("🛑 Shutting down.")
         logger.critical("ADMIN shutdown by %s", ctx.author.id)
         await self.bot.close()
+
+    # ─────────────────────────────────────────────────────────────
+    # REGEN TASKS
+    # ─────────────────────────────────────────────────────────────
+    @commands.command(name="regen_tasks")
+    @owner_only()
+    async def regen_tasks(self, ctx, user_id: int, send: bool = True):
+        """
+        Force-regenerate today's tasks for a single user.
+        """
+
+        profile = get_active_profile(str(user_id))
+        if not profile:
+            await ctx.send("❌ User has no active profile.")
+            return
+
+        regenerate_daily_tasks(profile["profile_id"])
+
+        if send:
+            await send_tasks_to_user(
+                self.bot,
+                user_id,
+                force_dm=True,
+            )
+
+        await ctx.send(f"🔄 Tasks regenerated for `{user_id}`.")
+        logger.warning(
+            "ADMIN regen_tasks user=%s by=%s",
+            user_id,
+            ctx.author.id,
+        )
 
 
 # ─────────────────────────────────────────────────────────────
