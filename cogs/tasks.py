@@ -28,6 +28,38 @@ def has_started(user_id: str) -> bool:
 
 
 # ------------------------------------------------------------
+# Normalizer (THIS WAS MISSING)
+# ------------------------------------------------------------
+
+def normalize_tasks(rows: list[dict]) -> dict:
+    """
+    Converts task rows into:
+    {
+        "required": {task_key: text},
+        "core": {...},
+        "intimacy": {...},
+        "kink": {...},
+        "explicit": {...},
+    }
+    """
+    buckets = {
+        "required": {},
+        "core": {},
+        "fun": {},
+        "regressive": {},
+        "intimacy": {},
+        "kink": {},
+        "explicit": {},
+    }
+
+    for r in rows:
+        buckets.setdefault(r["category"], {})
+        buckets[r["category"]][r["task_key"]] = r["text"]
+
+    return buckets
+
+
+# ------------------------------------------------------------
 # Task Button
 # ------------------------------------------------------------
 
@@ -41,16 +73,18 @@ class TaskButton(discord.ui.Button):
         bot = interaction.client
 
         await complete_task_for_profile(
-            bot,
-            self.profile_id,
-            self.task_key,
+            bot=bot,
+            profile_id=self.profile_id,
+            task_key=self.task_key,
         )
 
         profile = get_active_profile(str(interaction.user.id))
-        tasks = get_tasks_for_profile(
+        raw_tasks = get_tasks_for_profile(
             profile["profile_id"],
             date.today().isoformat(),
         )
+
+        tasks = normalize_tasks(raw_tasks)
 
         embed, view = build_tasks_embed_and_view(
             interaction.user.id,
@@ -73,7 +107,7 @@ def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
         color=discord.Color.from_rgb(160, 120, 200),
     )
 
-    def section(items):
+    def section(items: dict):
         if not items:
             return "✔ Nothing left here."
         return "\n".join(
@@ -83,47 +117,47 @@ def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
 
     embed.add_field(
         name="Required",
-        value=section(tasks["required"]),
+        value=section(tasks.get("required", {})),
         inline=False,
     )
 
     embed.add_field(
         name="Core",
-        value=section(tasks["core"]),
+        value=section(tasks.get("core", {})),
         inline=False,
     )
 
-    if tasks["intimacy"]:
+    if tasks.get("intimacy"):
         embed.add_field(
             name="Intimacy",
             value=section(tasks["intimacy"]),
             inline=False,
         )
 
-    if tasks["kink"]:
+    if tasks.get("kink"):
         embed.add_field(
             name="Kink",
             value=section(tasks["kink"]),
             inline=False,
         )
 
-    if tasks["explicit"]:
+    if tasks.get("explicit"):
         embed.add_field(
             name="Explicit",
             value=section(tasks["explicit"]),
             inline=False,
         )
 
-    embed.set_footer(text="Tasks disappear when completed.")
+    embed.set_footer(text="Tasks update as you complete them.")
 
     view = discord.ui.View(timeout=None)
 
     for category in tasks.values():
-        for key in category:
+        for task_key in category.keys():
             view.add_item(
                 TaskButton(
                     profile_id=profile["profile_id"],
-                    task_key=key,
+                    task_key=task_key,
                 )
             )
 
@@ -164,10 +198,12 @@ class Tasks(commands.Cog):
 
         generate_daily_tasks(profile["profile_id"])
 
-        tasks = get_tasks_for_profile(
+        raw_tasks = get_tasks_for_profile(
             profile["profile_id"],
             date.today().isoformat(),
         )
+
+        tasks = normalize_tasks(raw_tasks)
 
         embed, view = build_tasks_embed_and_view(
             interaction.user.id,

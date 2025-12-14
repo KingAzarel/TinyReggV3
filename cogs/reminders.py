@@ -4,6 +4,7 @@ from discord import app_commands
 from datetime import datetime
 
 from core.db import get_connection
+from core.presence import get_active_profile
 
 
 class DeadlineReminderCog(commands.Cog):
@@ -37,13 +38,22 @@ class DeadlineReminderCog(commands.Cog):
             )
             return
 
+        # Resolve active profile
+        profile = get_active_profile(str(user.id))
+        if not profile:
+            await interaction.response.send_message(
+                "That user has no active profile.",
+                ephemeral=True,
+            )
+            return
+
         conn = get_connection()
         cur = conn.cursor()
 
         cur.execute(
             """
             INSERT INTO reminders (
-                user_id,
+                profile_id,
                 hour,
                 minute,
                 text,
@@ -52,7 +62,7 @@ class DeadlineReminderCog(commands.Cog):
             VALUES (?, ?, ?, ?, 0)
             """,
             (
-                str(user.id),
+                profile["profile_id"],
                 hour,
                 minute,
                 f"DEADLINE: {title} — due {due_date}",
@@ -79,9 +89,13 @@ class DeadlineReminderCog(commands.Cog):
 
         cur.execute(
             """
-            SELECT reminder_id, user_id, text
-            FROM reminders
-            WHERE hour = ? AND minute = ?
+            SELECT
+                r.reminder_id,
+                r.text,
+                p.user_id
+            FROM reminders r
+            JOIN profiles p ON p.profile_id = r.profile_id
+            WHERE r.hour = ? AND r.minute = ?
             """,
             (now.hour, now.minute),
         )

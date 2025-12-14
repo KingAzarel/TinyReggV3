@@ -24,7 +24,7 @@ def initialize_db():
     cur = conn.cursor()
 
     # ─────────────────────────────────────────────────────────
-    # USERS (account-level, not identity-level)
+    # USERS (account-level only)
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS users (
@@ -37,7 +37,7 @@ def initialize_db():
     """)
 
     # ─────────────────────────────────────────────────────────
-    # PROFILES / PRESENCE
+    # PROFILES (presence / context)
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS profiles (
@@ -67,7 +67,7 @@ def initialize_db():
     """)
 
     # ─────────────────────────────────────────────────────────
-    # PRESENCE SWITCH LOG
+    # PROFILE SWITCH LOG
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS profile_switch_log (
@@ -102,7 +102,7 @@ def initialize_db():
     """)
 
     # ─────────────────────────────────────────────────────────
-    # TASK HISTORY (FIXED PK)
+    # TASK HISTORY
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS task_history (
@@ -258,7 +258,7 @@ def initialize_db():
     """)
 
     # ─────────────────────────────────────────────────────────
-    # CONSENT LOG
+    # CONSENT LOG (audit safety)
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS consent_log (
@@ -274,7 +274,7 @@ def initialize_db():
     """)
 
     # ─────────────────────────────────────────────────────────
-    # REMINDERS & MILESTONES
+    # REMINDERS
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS reminders (
@@ -291,6 +291,9 @@ def initialize_db():
     )
     """)
 
+    # ─────────────────────────────────────────────────────────
+    # MILESTONES
+    # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS milestones (
         milestone_id INTEGER PRIMARY KEY AUTOINCREMENT,

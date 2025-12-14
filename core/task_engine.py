@@ -2,6 +2,8 @@
 
 import random
 from datetime import date
+from collections import defaultdict
+
 from core import task_pools
 from core.db import get_connection
 
@@ -14,6 +16,49 @@ MAX_DAILY_TASKS = 10
 
 def _today() -> str:
     return date.today().isoformat()
+
+
+# ─────────────────────────────────────────────
+# TASK TEXT RESOLUTION (ENGINE OWNS SHAPE)
+# ─────────────────────────────────────────────
+
+def _resolve_task_text(task_key: str) -> str:
+    """
+    Canonical task text resolver.
+
+    This is intentionally centralized so that:
+    - Today: text comes from task_pools
+    - Later: text can come from DB / AI / localization
+    """
+    for pool in (
+        task_pools.BASIC_CARE,
+        task_pools.FUN_TASKS,
+        task_pools.SMALL_CLEANING,
+        task_pools.MEDIUM_CLEANING,
+        task_pools.HEAVY_CLEANING,
+        task_pools.REGRESSIVE_TASKS,
+    ):
+        if task_key in pool:
+            return pool[task_key]
+
+    for text in task_pools.INTIMACY_TASKS:
+        if task_key.endswith(str(abs(hash(text)))):
+            return text
+
+    for level in (
+        task_pools.KINK_LEVEL_1,
+        task_pools.KINK_LEVEL_2,
+        task_pools.KINK_LEVEL_3,
+    ):
+        for text in level:
+            if task_key.endswith(str(abs(hash(text)))):
+                return text
+
+    for text in task_pools.EXPLICIT_TASKS:
+        if task_key.endswith(str(abs(hash(text)))):
+            return text
+
+    return task_key  # safe fallback
 
 
 # ─────────────────────────────────────────────
@@ -34,10 +79,7 @@ def _weighted_choice(weighted_items):
 def _get_profile(profile_id):
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute(
-        "SELECT * FROM profiles WHERE profile_id = ?",
-        (profile_id,),
-    )
+    cur.execute("SELECT * FROM profiles WHERE profile_id = ?", (profile_id,))
     row = cur.fetchone()
     conn.close()
     return row
@@ -154,7 +196,6 @@ def generate_daily_tasks(profile_id):
     existing = _get_existing_task_keys(profile_id)
     tasks = []
 
-    # Required tasks
     for t in task_pools.get_required_tasks():
         if t["key"] not in existing:
             tasks.append(t)
@@ -226,80 +267,27 @@ def generate_daily_tasks(profile_id):
 
 
 # ─────────────────────────────────────────────
-# PRESENCE CHANGE HANDLER
-# ─────────────────────────────────────────────
-
-def reassess_tasks_for_profile(profile_id):
-    profile = _get_profile(profile_id)
-    if not profile:
-        return
-
-    age = profile["age_context"]
-    allowed = {"required", "basic", "fun", "small_clean"}
-
-    if age in ("cloudy", "regressive"):
-        allowed.add("regressive")
-
-    if age == "adult":
-        allowed |= {"medium_clean", "heavy_clean"}
-        if profile["intimacy_opt_in"]:
-            allowed.add("intimacy")
-        if profile["kink_opt_in"]:
-            allowed.add("kink")
-        if profile["explicit_opt_in"]:
-            allowed.add("explicit")
-
-    _remove_uncompleted_unsafe(profile_id, allowed)
-    generate_daily_tasks(profile_id)
-
-
-# ─────────────────────────────────────────────
-# USER-REQUESTED TASKS
-# ─────────────────────────────────────────────
-
-def request_tasks_from_pool(profile_id, pool, count=1):
-    profile = _get_profile(profile_id)
-    if not profile:
-        return []
-
-    age = profile["age_context"]
-    tasks = []
-
-    for _ in range(count):
-        if pool == "basic":
-            tasks += task_pools.get_basic_care()
-        elif pool == "fun":
-            tasks += task_pools.get_fun_tasks()
-        elif pool == "regressive" and age in ("regressive", "cloudy"):
-            tasks += task_pools.get_regressive_tasks()
-        elif pool == "small_clean":
-            tasks += task_pools.get_small_cleaning()
-        elif pool == "medium_clean" and age == "adult":
-            tasks += task_pools.get_medium_cleaning()
-        elif pool == "heavy_clean" and age == "adult":
-            tasks += task_pools.get_heavy_cleaning()
-        elif pool == "intimacy" and age == "adult" and profile["intimacy_opt_in"]:
-            tasks += task_pools.get_intimacy_tasks()
-        elif pool == "kink" and age == "adult" and profile["kink_opt_in"]:
-            tasks += task_pools.get_kink_tasks()
-        elif pool == "explicit" and age == "adult" and profile["explicit_opt_in"]:
-            if not _explicit_already_assigned(profile_id):
-                tasks += task_pools.get_explicit_tasks()
-
-    _insert_tasks(profile_id, tasks)
-    return tasks
-
-
-# ─────────────────────────────────────────────
-# TASK ACCESS + COMPLETION
+# TASK ACCESS (CANONICAL SHAPE)
 # ─────────────────────────────────────────────
 
 def get_tasks_for_profile(profile_id: int, date_str: str):
+    """
+    Returns a normalized task map:
+
+    {
+        "required": {task_key: text},
+        "core": {...},
+        "intimacy": {...},
+        "kink": {...},
+        "explicit": {...}
+    }
+    """
+
     conn = get_connection()
     cur = conn.cursor()
     cur.execute(
         """
-        SELECT *
+        SELECT task_key, category, is_required
         FROM assigned_tasks
         WHERE profile_id = ?
           AND date = ?
@@ -308,13 +296,44 @@ def get_tasks_for_profile(profile_id: int, date_str: str):
     )
     rows = cur.fetchall()
     conn.close()
-    return rows
+
+    tasks = defaultdict(dict)
+
+    for r in rows:
+        key = r["task_key"]
+        text = _resolve_task_text(key)
+
+        if r["is_required"]:
+            tasks["required"][key] = text
+        else:
+            tasks[r["category"]][key] = text
+
+    return tasks
 
 
-def complete_task_for_profile(profile_id: int, task_key: str):
+# ─────────────────────────────────────────────
+# COMPLETION (SINGLE SOURCE OF TRUTH)
+# ─────────────────────────────────────────────
+
+def complete_task_for_profile(profile_id: int, task_key: str) -> bool:
     today = _today()
     conn = get_connection()
     cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT 1
+        FROM assigned_tasks
+        WHERE profile_id = ?
+          AND task_key = ?
+          AND date = ?
+        """,
+        (profile_id, task_key, today),
+    )
+
+    if not cur.fetchone():
+        conn.close()
+        return False
 
     cur.execute(
         """
@@ -327,3 +346,4 @@ def complete_task_for_profile(profile_id: int, task_key: str):
 
     conn.commit()
     conn.close()
+    return True

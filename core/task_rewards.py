@@ -5,7 +5,7 @@ from core.completion_messages import get_completion_message
 
 
 # ─────────────────────────────────────────────
-# CONFIG
+# CONFIG (easy to scale later)
 # ─────────────────────────────────────────────
 
 BASE_TOKEN_REWARD = 1
@@ -21,17 +21,20 @@ def _today() -> str:
 
 
 # ─────────────────────────────────────────────
-# PUBLIC ENTRY POINT
+# PUBLIC ENTRY POINT (CANONICAL)
 # ─────────────────────────────────────────────
 
-def handle_task_completion(user_id: str, profile_id: int, task_key: str):
+def handle_task_completion(user_id: str, profile_id: int, task_key: str) -> str:
     """
-    Handles:
+    Canonical task completion handler.
+
+    Responsibilities:
+    - idempotent completion safety
     - token rewards
     - streak updates
-    - completion messaging
+    - returns a completion message template
 
-    Returns a completion message template (names injected elsewhere).
+    UI / theming / injection happens elsewhere.
     """
 
     today = _today()
@@ -40,7 +43,7 @@ def handle_task_completion(user_id: str, profile_id: int, task_key: str):
     cur = conn.cursor()
 
     # ─────────────────────────────────────────
-    # Fetch task info
+    # Validate task exists for today
     # ─────────────────────────────────────────
     cur.execute(
         """
@@ -56,15 +59,48 @@ def handle_task_completion(user_id: str, profile_id: int, task_key: str):
 
     if not task:
         conn.close()
-        return "That task is already gone."
+        return "That task isn’t available anymore."
 
     category = task["category"]
     is_required = bool(task["is_required"])
 
     # ─────────────────────────────────────────
-    # Token rewards
+    # Idempotency guard (NO double rewards)
     # ─────────────────────────────────────────
-    total_tokens = BASE_TOKEN_REWARD + (REQUIRED_TASK_BONUS if is_required else 0)
+    cur.execute(
+        """
+        SELECT completed
+        FROM task_history
+        WHERE profile_id = ?
+          AND task_key = ?
+          AND date = ?
+        """,
+        (profile_id, task_key, today),
+    )
+    existing = cur.fetchone()
+
+    if existing and existing["completed"]:
+        conn.close()
+        return "That task was already completed 💜"
+
+    # ─────────────────────────────────────────
+    # Record completion FIRST (source of truth)
+    # ─────────────────────────────────────────
+    cur.execute(
+        """
+        INSERT OR REPLACE INTO task_history
+        (profile_id, date, task_key, completed)
+        VALUES (?, ?, ?, 1)
+        """,
+        (profile_id, today, task_key),
+    )
+
+    # ─────────────────────────────────────────
+    # Token rewards (isolated + scalable)
+    # ─────────────────────────────────────────
+    total_tokens = BASE_TOKEN_REWARD
+    if is_required:
+        total_tokens += REQUIRED_TASK_BONUS
 
     cur.execute(
         """
@@ -78,23 +114,42 @@ def handle_task_completion(user_id: str, profile_id: int, task_key: str):
     # ─────────────────────────────────────────
     # Streak updates
     # ─────────────────────────────────────────
-    _update_streaks(cur, profile_id, category, is_required, today)
+    _update_streaks(
+        cur=cur,
+        profile_id=profile_id,
+        category=category,
+        is_required=is_required,
+        today=today,
+    )
 
     conn.commit()
     conn.close()
 
-    # Return completion message template
+    # ─────────────────────────────────────────
+    # Return completion message (template only)
+    # ─────────────────────────────────────────
     return get_completion_message(category, is_required)
 
 
 # ─────────────────────────────────────────────
-# STREAK HANDLING
+# STREAK HANDLING (ISOLATED + SAFE)
 # ─────────────────────────────────────────────
 
-def _update_streaks(cur, profile_id: int, category: str, is_required: bool, today: str):
+def _update_streaks(
+    *,
+    cur,
+    profile_id: int,
+    category: str,
+    is_required: bool,
+    today: str,
+):
     """
-    Updates streaks in profile_streaks.
-    Only touches fields relevant to the task completed.
+    Updates profile_streaks safely.
+
+    This function:
+    - assumes an open transaction
+    - never commits
+    - only mutates relevant fields
     """
 
     # Ensure row exists

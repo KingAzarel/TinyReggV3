@@ -6,25 +6,36 @@ from core.db import get_connection
 # ─────────────────────────────────────────────
 
 def get_active_profile(user_id: str):
+    """
+    Returns the currently active profile for a user.
+    There should only ever be ONE active profile.
+    """
     conn = get_connection()
     cur = conn.cursor()
+
     cur.execute(
         """
         SELECT *
         FROM profiles
         WHERE user_id = ?
           AND is_active = 1
+        LIMIT 1
         """,
         (user_id,),
     )
+
     row = cur.fetchone()
     conn.close()
     return row
 
 
 def get_all_profiles(user_id: str):
+    """
+    Returns all profiles for a user, ordered by creation.
+    """
     conn = get_connection()
     cur = conn.cursor()
+
     cur.execute(
         """
         SELECT *
@@ -34,6 +45,7 @@ def get_all_profiles(user_id: str):
         """,
         (user_id,),
     )
+
     rows = cur.fetchall()
     conn.close()
     return rows
@@ -45,47 +57,69 @@ def get_all_profiles(user_id: str):
 
 def switch_active_profile(user_id: str, profile_id: int):
     """
-    Deactivate all profiles for user, then activate one.
-    This is the ONLY place presence switching should happen.
+    Canonical presence switch.
+
+    Guarantees:
+    - exactly ONE active profile
+    - atomic update
+    - logged switch history
+
+    This is the ONLY place profile activation should occur.
     """
+
     conn = get_connection()
     cur = conn.cursor()
 
-    # deactivate all
-    cur.execute(
-        "UPDATE profiles SET is_active = 0 WHERE user_id = ?",
-        (user_id,),
-    )
+    try:
+        # deactivate all profiles for user
+        cur.execute(
+            """
+            UPDATE profiles
+            SET is_active = 0
+            WHERE user_id = ?
+            """,
+            (user_id,),
+        )
 
-    # activate selected
-    cur.execute(
-        """
-        UPDATE profiles
-        SET is_active = 1
-        WHERE profile_id = ?
-          AND user_id = ?
-        """,
-        (profile_id, user_id),
-    )
+        # activate selected profile (scoped to user)
+        cur.execute(
+            """
+            UPDATE profiles
+            SET is_active = 1
+            WHERE profile_id = ?
+              AND user_id = ?
+            """,
+            (profile_id, user_id),
+        )
 
-    # log switch
-    cur.execute(
-        """
-        INSERT INTO profile_switch_log (user_id, profile_id)
-        VALUES (?, ?)
-        """,
-        (user_id, profile_id),
-    )
+        # ensure activation actually happened
+        if cur.rowcount == 0:
+            raise ValueError("Profile does not belong to user or does not exist.")
 
-    conn.commit()
-    conn.close()
+        # log switch
+        cur.execute(
+            """
+            INSERT INTO profile_switch_log (user_id, profile_id)
+            VALUES (?, ?)
+            """,
+            (user_id, profile_id),
+        )
+
+        conn.commit()
+
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+        conn.close()
 
 
 # ─────────────────────────────────────────────
 # 🔁 BACKWARD-COMPATIBILITY ALIASES
 # ─────────────────────────────────────────────
 
-# legacy name used by many cogs
+# legacy name used by older cogs
 def switch_active_person(user_id: str, profile_id: int):
     switch_active_profile(user_id, profile_id)
 
@@ -96,13 +130,17 @@ def set_active_profile(user_id: str, profile_id: int):
 
 
 # ─────────────────────────────────────────────
-# EVENT EMISSION
+# EVENT EMISSION (OPTIONAL HOOK)
 # ─────────────────────────────────────────────
 
 async def emit_presence_changed(bot, user_id: str, profile_id: int):
     """
     Emits a global presence_changed event.
-    Optional listeners can react to this.
+
+    Future listeners may:
+    - reassess tasks
+    - update presence text
+    - trigger AI state changes
     """
     bot.dispatch(
         "presence_changed",
@@ -115,21 +153,26 @@ async def emit_presence_changed(bot, user_id: str, profile_id: int):
 # CLOUDY MODE (SAFE DEFAULT)
 # ─────────────────────────────────────────────
 
-def set_cloudy_mode(user_id: str):
+def set_cloudy_mode(user_id: str) -> int:
     """
-    Ensures a cloudy profile exists and activates it.
-    Cloudy is always safe and always switchable.
+    Ensures a Cloudy profile exists and activates it.
+
+    Cloudy mode is:
+    - always safe
+    - always reversible
+    - never destructive
     """
+
     conn = get_connection()
     cur = conn.cursor()
 
-    # look for existing cloudy profile
     cur.execute(
         """
         SELECT profile_id
         FROM profiles
         WHERE user_id = ?
           AND age_context = 'cloudy'
+        LIMIT 1
         """,
         (user_id,),
     )
