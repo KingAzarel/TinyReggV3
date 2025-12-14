@@ -16,7 +16,7 @@ from utils import BOT_OWNER_ID, MAIN_GUILD_ID
 # CONSTANTS
 # ─────────────────────────────────────────────────────────────
 
-BELLA_USER_ID = "868623435650175046"
+# BELLA_USER_ID = "868623435650175046"
 
 WATCHING_ACTIVITY = discord.Activity(
     type=discord.ActivityType.watching,
@@ -164,7 +164,7 @@ async def presence_watcher():
     is_cloudy = False
 
     try:
-        active = get_active_profile(BELLA_USER_ID)
+        active = get_active_profile(os.getenv("PRESENCE_OWNER_ID")
         if active and active["age_context"] == "cloudy":
             is_cloudy = True
     except Exception as e:
