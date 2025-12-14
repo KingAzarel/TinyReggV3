@@ -39,28 +39,47 @@ class MorningScheduler(commands.Cog):
 
         self._mark_prompted(today)
 
-        # Fetch Bella directly (single recipient system)
-        try:
-            bella = await self.bot.fetch_user(868623435650175046)
-        except:
+        from core.db import get_connection
+
+        conn = get_connection()
+        cur = conn.cursor()
+
+        # Fetch ALL users who have started
+        cur.execute("""
+            SELECT user_id
+            FROM users
+            WHERE has_started = 1
+        """)
+        users = cur.fetchall()
+        conn.close()
+
+        if not users:
             return
 
-        embed = build_embed(
-            title="🌅 Good Morning",
-            description=(
-                "Who’s fronting today?\n\n"
-                "You can choose a profile, create a new one, or stay in **Cloudy Mode**.\n"
-                "Cloudy Mode still counts toward streaks and rewards."
-            ),
-            color=purple_doll_colors["accent"]
-        )
+        for row in users:
+            user_id = row["user_id"]
 
-        view = FrontingSelectionView()
+            try:
+                user = await self.bot.fetch_user(int(user_id))
+            except Exception:
+                continue
 
-        try:
-            await bella.send(embed=embed, view=view)
-        except discord.Forbidden:
-            pass
+            embed = build_embed(
+                title="🌅 Good Morning",
+                description=(
+                    "Who’s fronting today?\n\n"
+                    "You can choose a profile, create a new one, or stay in **Cloudy Mode**.\n"
+                    "Cloudy Mode still counts toward streaks and rewards."
+                ),
+                color=purple_doll_colors["accent"]
+            )
+
+            view = FrontingSelectionView(user_id=user_id)
+
+            try:
+                await user.send(embed=embed, view=view)
+            except discord.Forbidden:
+                continue
 
     # ---------------------------------------------------------
     # Daily State Tracking
