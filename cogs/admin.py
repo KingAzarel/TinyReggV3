@@ -28,10 +28,9 @@ class AdminCog(commands.Cog):
     # Utility: safe-call helper
     # Prevents crashes if a method is not wired yet
     # ─────────────────────────────────────────────────────────────
-    async def _safe_call(self, ctx, fn_name: str, *args):
+    async def _safe_call(self, fn_name: str, *args):
         fn = getattr(self.bot, fn_name, None)
         if not fn:
-            await ctx.send(f"❌ `{fn_name}` is not implemented yet.")
             logger.error("ADMIN attempted missing fn: %s", fn_name)
             return False
 
@@ -44,7 +43,7 @@ class AdminCog(commands.Cog):
     @commands.command(name="resend_tasks")
     @owner_only()
     async def resend_tasks(self, ctx):
-        ok = await self._safe_call(ctx, "dispatch_daily_tasks")
+        ok = await self._safe_call("dispatch_daily_tasks")
         if ok:
             await ctx.send("🔁 Daily tasks resent.")
             logger.warning("ADMIN resend_tasks by %s", ctx.author.id)
@@ -55,7 +54,7 @@ class AdminCog(commands.Cog):
     @commands.command(name="reset_day")
     @owner_only()
     async def reset_day(self, ctx):
-        ok = await self._safe_call(ctx, "force_daily_reset")
+        ok = await self._safe_call("force_daily_reset")
         if ok:
             await ctx.send("🕛 Daily state reset.")
             logger.warning("ADMIN reset_day by %s", ctx.author.id)
@@ -66,7 +65,7 @@ class AdminCog(commands.Cog):
     @commands.command(name="reset_user")
     @owner_only()
     async def reset_user(self, ctx, user_id: int):
-        ok = await self._safe_call(ctx, "reset_user_state", user_id)
+        ok = await self._safe_call("reset_user_state", user_id)
         if ok:
             await ctx.send(f"♻️ User `{user_id}` reset.")
             logger.warning(
@@ -85,7 +84,7 @@ class AdminCog(commands.Cog):
             await ctx.send("❌ Streak cannot be negative.")
             return
 
-        ok = await self._safe_call(ctx, "set_user_streak", user_id, value)
+        ok = await self._safe_call("set_user_streak", user_id, value)
         if ok:
             await ctx.send(f"🔥 Streak for `{user_id}` set to `{value}`.")
             logger.critical(
@@ -105,7 +104,7 @@ class AdminCog(commands.Cog):
             await ctx.send("❌ Amount must be positive.")
             return
 
-        ok = await self._safe_call(ctx, "add_tokens", user_id, amount)
+        ok = await self._safe_call("add_tokens", user_id, amount)
         if ok:
             await ctx.send(f"🪙 Added `{amount}` tokens to `{user_id}`.")
             logger.warning(
@@ -122,7 +121,7 @@ class AdminCog(commands.Cog):
             await ctx.send("❌ Amount must be positive.")
             return
 
-        ok = await self._safe_call(ctx, "remove_tokens", user_id, amount)
+        ok = await self._safe_call("remove_tokens", user_id, amount)
         if ok:
             await ctx.send(f"🪙 Removed `{amount}` tokens from `{user_id}`.")
             logger.warning(

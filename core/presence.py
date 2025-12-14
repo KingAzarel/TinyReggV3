@@ -1,5 +1,3 @@
-# core/presence.py
-
 from core.db import get_connection
 
 
@@ -46,19 +44,31 @@ def get_all_profiles(user_id: str):
 # ─────────────────────────────────────────────
 
 def switch_active_profile(user_id: str, profile_id: int):
+    """
+    Deactivate all profiles for user, then activate one.
+    This is the ONLY place presence switching should happen.
+    """
     conn = get_connection()
     cur = conn.cursor()
 
+    # deactivate all
     cur.execute(
         "UPDATE profiles SET is_active = 0 WHERE user_id = ?",
         (user_id,),
     )
 
+    # activate selected
     cur.execute(
-        "UPDATE profiles SET is_active = 1 WHERE profile_id = ?",
-        (profile_id,),
+        """
+        UPDATE profiles
+        SET is_active = 1
+        WHERE profile_id = ?
+          AND user_id = ?
+        """,
+        (profile_id, user_id),
     )
 
+    # log switch
     cur.execute(
         """
         INSERT INTO profile_switch_log (user_id, profile_id)
@@ -80,7 +90,7 @@ def switch_active_person(user_id: str, profile_id: int):
     switch_active_profile(user_id, profile_id)
 
 
-# legacy opt-in cog expects this
+# legacy opt-in / presence cogs expect this
 def set_active_profile(user_id: str, profile_id: int):
     switch_active_profile(user_id, profile_id)
 
@@ -90,22 +100,36 @@ def set_active_profile(user_id: str, profile_id: int):
 # ─────────────────────────────────────────────
 
 async def emit_presence_changed(bot, user_id: str, profile_id: int):
+    """
+    Emits a global presence_changed event.
+    Optional listeners can react to this.
+    """
     bot.dispatch(
         "presence_changed",
         user_id=user_id,
         profile_id=profile_id,
     )
 
-# legacy cloudy-mode helper (used by optin cog)
+
+# ─────────────────────────────────────────────
+# CLOUDY MODE (SAFE DEFAULT)
+# ─────────────────────────────────────────────
+
 def set_cloudy_mode(user_id: str):
+    """
+    Ensures a cloudy profile exists and activates it.
+    Cloudy is always safe and always switchable.
+    """
     conn = get_connection()
     cur = conn.cursor()
 
-    # find or create cloudy profile
+    # look for existing cloudy profile
     cur.execute(
         """
-        SELECT profile_id FROM profiles
-        WHERE user_id = ? AND age_context = 'cloudy'
+        SELECT profile_id
+        FROM profiles
+        WHERE user_id = ?
+          AND age_context = 'cloudy'
         """,
         (user_id,),
     )
@@ -116,7 +140,12 @@ def set_cloudy_mode(user_id: str):
     else:
         cur.execute(
             """
-            INSERT INTO profiles (user_id, name, age_context, is_active)
+            INSERT INTO profiles (
+                user_id,
+                name,
+                age_context,
+                is_active
+            )
             VALUES (?, 'Cloudy', 'cloudy', 0)
             """,
             (user_id,),

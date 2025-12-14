@@ -11,6 +11,7 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "tinyregg.db")
 def get_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
     return conn
 
 
@@ -28,27 +29,22 @@ def initialize_db():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS users (
         user_id TEXT PRIMARY KEY,
-
         tokens INTEGER DEFAULT 0,
         boss_tokens INTEGER DEFAULT 0,
-
         theme TEXT DEFAULT 'purple_doll',
-
         has_started INTEGER NOT NULL DEFAULT 0
     )
     """)
 
     # ─────────────────────────────────────────────────────────
-    # PEOPLE / PRESENCE
+    # PROFILES / PRESENCE
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS profiles (
         profile_id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id TEXT NOT NULL,
-
         name TEXT NOT NULL,
 
-        -- adult | regressive | cloudy
         age_context TEXT NOT NULL
             CHECK (age_context IN ('adult', 'regressive', 'cloudy'))
             DEFAULT 'cloudy',
@@ -64,7 +60,9 @@ def initialize_db():
         is_active INTEGER NOT NULL DEFAULT 0,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
-        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+        FOREIGN KEY (user_id)
+            REFERENCES users(user_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -78,7 +76,9 @@ def initialize_db():
         profile_id INTEGER NOT NULL,
         switched_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -91,28 +91,31 @@ def initialize_db():
         date TEXT,
         task_key TEXT,
         category TEXT,
-
         is_required INTEGER DEFAULT 0,
         hidden_until_complete INTEGER DEFAULT 1,
 
         PRIMARY KEY (profile_id, date, task_key),
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
     # ─────────────────────────────────────────────────────────
-    # TASK HISTORY
+    # TASK HISTORY (FIXED PK)
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS task_history (
         profile_id INTEGER,
         date TEXT,
         task_key TEXT,
-
         completed INTEGER DEFAULT 0,
         points_awarded INTEGER DEFAULT 0,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        PRIMARY KEY (profile_id, date, task_key),
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -122,7 +125,6 @@ def initialize_db():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS profile_streaks (
         profile_id INTEGER PRIMARY KEY,
-
         required_streak INTEGER DEFAULT 0,
         intimacy_streak INTEGER DEFAULT 0,
         kink_streak INTEGER DEFAULT 0,
@@ -134,7 +136,9 @@ def initialize_db():
         last_kink_day TEXT,
         last_explicit_day TEXT,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -155,7 +159,9 @@ def initialize_db():
         count INTEGER DEFAULT 0,
 
         PRIMARY KEY (profile_id, requirement_key),
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -166,7 +172,9 @@ def initialize_db():
         boss_name TEXT,
         defeated_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -177,13 +185,14 @@ def initialize_db():
     CREATE TABLE IF NOT EXISTS weekly (
         profile_id INTEGER,
         week INTEGER,
-
         tasks_completed INTEGER DEFAULT 0,
         bosses_defeated INTEGER DEFAULT 0,
         bonus_awarded INTEGER DEFAULT 0,
 
         PRIMARY KEY (profile_id, week),
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -197,7 +206,9 @@ def initialize_db():
         title TEXT,
         earned_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -208,7 +219,9 @@ def initialize_db():
         badge TEXT,
         earned_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -221,7 +234,9 @@ def initialize_db():
         item_key TEXT,
         timestamp TEXT,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -236,12 +251,14 @@ def initialize_db():
         delivered_at TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
     # ─────────────────────────────────────────────────────────
-    # CONSENT LOG (audit safety)
+    # CONSENT LOG
     # ─────────────────────────────────────────────────────────
     cur.execute("""
     CREATE TABLE IF NOT EXISTS consent_log (
@@ -251,7 +268,8 @@ def initialize_db():
         category TEXT,
         new_value INTEGER,
 
-        FOREIGN KEY (user_id) REFERENCES users(user_id)
+        FOREIGN KEY (user_id)
+            REFERENCES users(user_id)
     )
     """)
 
@@ -267,7 +285,9 @@ def initialize_db():
         text TEXT,
         is_recurring INTEGER DEFAULT 0,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -279,7 +299,9 @@ def initialize_db():
         datetime TEXT,
         repeat TEXT,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -292,7 +314,9 @@ def initialize_db():
         timestamp TEXT,
         mood TEXT,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 
@@ -315,7 +339,9 @@ def initialize_db():
         timestamp TEXT,
         sent INTEGER DEFAULT 0,
 
-        FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
+        FOREIGN KEY (profile_id)
+            REFERENCES profiles(profile_id)
+            ON DELETE CASCADE
     )
     """)
 

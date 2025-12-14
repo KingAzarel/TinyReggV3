@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 # ─── Environment ─────────────────────────────────────────────
 load_dotenv()
 
-BOT_OWNER_ID  = int(os.getenv("BOT_OWNER_ID", "0"))
+BOT_OWNER_ID = int(os.getenv("BOT_OWNER_ID", "0"))
 MAIN_GUILD_ID = int(os.getenv("MAIN_GUILD_ID", "0"))
 
 CT = ZoneInfo("America/Chicago")
@@ -21,7 +21,7 @@ CT = ZoneInfo("America/Chicago")
 async def enforce_role(interaction: discord.Interaction, role_name: str) -> bool:
     if interaction.guild:
         member = await interaction.guild.fetch_member(interaction.user.id)
-        if not any(r.name == role_name for r in member.roles):
+        if not any(role.name == role_name for role in member.roles):
             raise AppCommandError(
                 f"You need the **{role_name}** role to use this command."
             )

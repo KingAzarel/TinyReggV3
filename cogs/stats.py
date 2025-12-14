@@ -5,8 +5,6 @@ from datetime import datetime, timedelta
 
 from core.db import get_connection
 from core.presence import get_active_profile
-from core.presence import switch_active_person
-
 
 
 class StatsCog(commands.Cog):
@@ -54,11 +52,11 @@ class StatsCog(commands.Cog):
 
         cur.execute(
             """
-            SELECT category, COUNT(*) as count
+            SELECT category, COUNT(*) AS count
             FROM task_history
             WHERE profile_id = ?
-            AND completed = 1
-            AND date >= ?
+              AND completed = 1
+              AND date >= ?
             GROUP BY category
             """,
             (profile["profile_id"], since),

@@ -50,7 +50,6 @@ def parse_pronouns(raw: str | None) -> Dict[str, str]:
     subject = parts[0]
     obj = parts[1]
 
-    # Known common sets
     if subject == "he":
         possessive = "his"
         reflexive = "himself"
@@ -61,7 +60,6 @@ def parse_pronouns(raw: str | None) -> Dict[str, str]:
         possessive = "their"
         reflexive = "themself"
     else:
-        # Fallback for neopronouns / custom sets
         possessive = subject
         reflexive = obj + "self"
 
@@ -88,11 +86,7 @@ def get_active_profile(user_id: str):
             profile_id,
             name,
             pronouns,
-            nickname,
-            age_context,
-            intimacy_opt_in,
-            kink_opt_in,
-            explicit_opt_in
+            nickname
         FROM profiles
         WHERE user_id = ?
           AND is_active = 1
@@ -105,9 +99,8 @@ def get_active_profile(user_id: str):
     return row
 
 
-
 # ------------------------------------------------------------
-# Name Injection
+# Name & Pronoun Injection (CANONICAL)
 # ------------------------------------------------------------
 
 def inject_names(template: str, user_id: str) -> str:
@@ -117,13 +110,17 @@ def inject_names(template: str, user_id: str) -> str:
     - {dom}
     - pronoun tokens (they/them/their/etc)
 
-    Fails safely if anything is missing.
+    Safe, silent failure.
     """
 
     profile = get_active_profile(user_id)
 
-    sub_name = profile["nickname"] if profile and profile["nickname"] else (
-        profile["name"] if profile else DEFAULT_SUB_FALLBACK
+    sub_name = (
+        profile["nickname"]
+        if profile and profile["nickname"]
+        else profile["name"]
+        if profile
+        else DEFAULT_SUB_FALLBACK
     )
 
     pronouns = parse_pronouns(profile["pronouns"] if profile else None)
@@ -147,29 +144,13 @@ def inject_names(template: str, user_id: str) -> str:
 def get_theme_colors(theme: str):
     THEMES = {
         "purple": {
-            "purple": 0x9B59B6,
+            "primary": 0x9B59B6,
             "soft": 0xC39BD3,
         },
         "pink": {
-            "pink": 0xF5B7B1,
+            "primary": 0xF5B7B1,
             "soft": 0xFADBD8,
         },
     }
 
     return THEMES.get(theme, THEMES["purple"])
-
-# core/theming.py
-
-def inject_names(text: str, profile=None):
-    """
-    Temporary compatibility shim.
-
-    Later this will:
-    - inject profile name
-    - adjust tone
-    - apply AI theming
-
-    For now, pass-through.
-    """
-    return text
-

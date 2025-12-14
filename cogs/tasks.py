@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
+from datetime import date
 
 from core.db import get_connection
 from core.task_engine import (
@@ -10,9 +11,7 @@ from core.task_engine import (
 )
 from core.theming import inject_names
 from core.users import ensure_user
-
-from core.presence import switch_active_person
-
+from core.presence import get_active_profile
 
 
 # ------------------------------------------------------------
@@ -28,25 +27,13 @@ def has_started(user_id: str) -> bool:
     return bool(row and row["has_started"])
 
 
-def get_active_profile(user_id: str):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT * FROM profiles WHERE user_id = ? AND is_active = 1",
-        (user_id,),
-    )
-    row = cur.fetchone()
-    conn.close()
-    return row
-
-
 # ------------------------------------------------------------
 # Task Button
 # ------------------------------------------------------------
 
 class TaskButton(discord.ui.Button):
-    def __init__(self, profile_id: int, task_key: str, label: str):
-        super().__init__(label=label, style=discord.ButtonStyle.primary)
+    def __init__(self, profile_id: int, task_key: str):
+        super().__init__(label="Complete", style=discord.ButtonStyle.primary)
         self.profile_id = profile_id
         self.task_key = task_key
 
@@ -60,11 +47,9 @@ class TaskButton(discord.ui.Button):
         )
 
         profile = get_active_profile(str(interaction.user.id))
-        from datetime import date
-
         tasks = get_tasks_for_profile(
             profile["profile_id"],
-            date.today().isoformat()
+            date.today().isoformat(),
         )
 
         embed, view = build_tasks_embed_and_view(
@@ -91,7 +76,10 @@ def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
     def section(items):
         if not items:
             return "✔ Nothing left here."
-        return "\n".join(f"• {inject_names(text, user_id)}" for text in items.values())
+        return "\n".join(
+            f"• {inject_names(text, user_id)}"
+            for text in items.values()
+        )
 
     embed.add_field(
         name="Required",
@@ -136,7 +124,6 @@ def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
                 TaskButton(
                     profile_id=profile["profile_id"],
                     task_key=key,
-                    label="Complete",
                 )
             )
 
@@ -158,7 +145,6 @@ class Tasks(commands.Cog):
     @app_commands.command(name="tasks", description="Show today’s tasks")
     async def tasks(self, interaction: discord.Interaction):
         user_id = str(interaction.user.id)
-
         ensure_user(user_id)
 
         if not has_started(user_id):
@@ -177,7 +163,11 @@ class Tasks(commands.Cog):
             return
 
         generate_daily_tasks(profile["profile_id"])
-        tasks = get_tasks_for_profile(profile["profile_id"])
+
+        tasks = get_tasks_for_profile(
+            profile["profile_id"],
+            date.today().isoformat(),
+        )
 
         embed, view = build_tasks_embed_and_view(
             interaction.user.id,
@@ -185,13 +175,20 @@ class Tasks(commands.Cog):
             tasks,
         )
 
-        await interaction.response.send_message(embed=embed, view=view)
+        await interaction.response.send_message(
+            embed=embed,
+            view=view,
+            ephemeral=True,
+        )
 
     # --------------------------------------------------------
-    # /tasks history
+    # /task_history
     # --------------------------------------------------------
 
-    @app_commands.command(name="task_history", description="See recent task history")
+    @app_commands.command(
+        name="task_history",
+        description="See recent task history"
+    )
     async def task_history(self, interaction: discord.Interaction):
         user_id = str(interaction.user.id)
 
@@ -247,7 +244,10 @@ class Tasks(commands.Cog):
             inline=False,
         )
 
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.response.send_message(
+            embed=embed,
+            ephemeral=True,
+        )
 
 
 async def setup(bot):

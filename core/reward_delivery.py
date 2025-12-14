@@ -1,3 +1,4 @@
+import logging
 import discord
 from datetime import datetime
 
@@ -5,15 +6,17 @@ from core.db import get_connection
 from shop.rewards import REWARDS
 from core.theming import format_reward_delivery
 
+log = logging.getLogger("tinyregg.reward_delivery")
+
 
 # ─────────────────────────────────────────────
-# Delivery entry point
+# PUBLIC ENTRY POINT
 # ─────────────────────────────────────────────
 
 async def deliver_pending_rewards(bot: discord.Client):
     """
-    Delivers all undelivered rewards.
-    Safe to call multiple times.
+    Deliver all undelivered rewards.
+    Safe to call repeatedly.
     """
 
     conn = get_connection()
@@ -35,24 +38,39 @@ async def deliver_pending_rewards(bot: discord.Client):
     )
 
     rows = cur.fetchall()
-
-    for row in rows:
-        await _deliver_one(bot, row)
-
     conn.close()
 
+    if not rows:
+        return
+
+    for row in rows:
+        try:
+            await _deliver_one(bot, row)
+        except Exception:
+            log.exception(
+                "Failed delivering reward id=%s item=%s",
+                row["id"],
+                row["item_id"],
+            )
+
 
 # ─────────────────────────────────────────────
-# Single delivery
+# SINGLE DELIVERY
 # ─────────────────────────────────────────────
 
-async def _deliver_one(bot: discord.Client, row):
+async def _deliver_one(bot: discord.Client, row: dict):
     item = REWARDS.get(row["item_id"])
+
+    # Unknown reward → mark delivered so it doesn’t loop forever
     if not item:
+        log.warning(
+            "Unknown reward item_id=%s — marking delivered",
+            row["item_id"],
+        )
         _mark_delivered(row["id"])
         return
 
-    user_id = row["user_id"]
+    user_id = int(row["user_id"])
     profile_name = row["profile_name"]
     reward_code = row["reward_code"]
 
@@ -62,21 +80,29 @@ async def _deliver_one(bot: discord.Client, row):
         profile_name=profile_name,
     )
 
-    for guild in bot.guilds:
-        member = guild.get_member(int(user_id))
-        if not member:
-            continue
+    # Prefer direct fetch (guild-agnostic, safer)
+    try:
+        user = await bot.fetch_user(user_id)
+    except Exception:
+        log.warning("Failed to fetch user %s", user_id)
+        return
 
-        try:
-            await member.send(message)
-        except discord.Forbidden:
-            pass
+    try:
+        await user.send(message)
+    except discord.Forbidden:
+        log.warning("DMs closed for user %s", user_id)
+        return
 
     _mark_delivered(row["id"])
+    log.info(
+        "Delivered reward id=%s to user=%s",
+        row["id"],
+        user_id,
+    )
 
 
 # ─────────────────────────────────────────────
-# DB update
+# DB UPDATE
 # ─────────────────────────────────────────────
 
 def _mark_delivered(redemption_id: int):

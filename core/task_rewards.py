@@ -1,3 +1,5 @@
+from datetime import date
+
 from core.db import get_connection
 from core.completion_messages import get_completion_message
 
@@ -11,70 +13,77 @@ REQUIRED_TASK_BONUS = 1
 
 
 # ─────────────────────────────────────────────
+# DATE (single source of truth)
+# ─────────────────────────────────────────────
+
+def _today() -> str:
+    return date.today().isoformat()
+
+
+# ─────────────────────────────────────────────
 # PUBLIC ENTRY POINT
 # ─────────────────────────────────────────────
 
-def handle_task_completion(user_id, profile_id, task_key):
+def handle_task_completion(user_id: str, profile_id: int, task_key: str):
     """
     Handles:
     - token rewards
     - streak updates
     - completion messaging
 
-    Returns a completion message template (not themed yet).
+    Returns a completion message template (names injected elsewhere).
     """
+
+    today = _today()
 
     conn = get_connection()
     cur = conn.cursor()
 
-    # Get task info
+    # ─────────────────────────────────────────
+    # Fetch task info
+    # ─────────────────────────────────────────
     cur.execute(
         """
         SELECT category, is_required
         FROM assigned_tasks
         WHERE profile_id = ?
           AND task_key = ?
-          AND date = DATE('now')
+          AND date = ?
         """,
-        (profile_id, task_key),
+        (profile_id, task_key, today),
     )
     task = cur.fetchone()
 
     if not task:
         conn.close()
-        return "I couldn’t find that task anymore."
+        return "That task is already gone."
 
     category = task["category"]
-    is_required = task["is_required"] == 1
+    is_required = bool(task["is_required"])
 
-    # Award base token
+    # ─────────────────────────────────────────
+    # Token rewards
+    # ─────────────────────────────────────────
+    total_tokens = BASE_TOKEN_REWARD + (REQUIRED_TASK_BONUS if is_required else 0)
+
     cur.execute(
         """
         UPDATE users
         SET tokens = tokens + ?
         WHERE user_id = ?
         """,
-        (BASE_TOKEN_REWARD, user_id),
+        (total_tokens, user_id),
     )
 
-    # Award required bonus
-    if is_required:
-        cur.execute(
-            """
-            UPDATE users
-            SET tokens = tokens + ?
-            WHERE user_id = ?
-            """,
-            (REQUIRED_TASK_BONUS, user_id),
-        )
-
-    # Update streaks
-    _update_streaks(cur, profile_id, category, is_required)
+    # ─────────────────────────────────────────
+    # Streak updates
+    # ─────────────────────────────────────────
+    _update_streaks(cur, profile_id, category, is_required, today)
 
     conn.commit()
     conn.close()
 
-    # Return completion message (template only)
+    # Return completion message template
     return get_completion_message(category, is_required)
 
 
@@ -82,10 +91,10 @@ def handle_task_completion(user_id, profile_id, task_key):
 # STREAK HANDLING
 # ─────────────────────────────────────────────
 
-def _update_streaks(cur, profile_id, category, is_required):
+def _update_streaks(cur, profile_id: int, category: str, is_required: bool, today: str):
     """
     Updates streaks in profile_streaks.
-    Only touches relevant streak fields.
+    Only touches fields relevant to the task completed.
     """
 
     # Ensure row exists
@@ -104,10 +113,10 @@ def _update_streaks(cur, profile_id, category, is_required):
             UPDATE profile_streaks
             SET
                 required_streak = required_streak + 1,
-                last_required_day = DATE('now')
+                last_required_day = ?
             WHERE profile_id = ?
             """,
-            (profile_id,),
+            (today, profile_id),
         )
 
     # Category-specific streaks
@@ -117,10 +126,10 @@ def _update_streaks(cur, profile_id, category, is_required):
             UPDATE profile_streaks
             SET
                 intimacy_streak = intimacy_streak + 1,
-                last_intimacy_day = DATE('now')
+                last_intimacy_day = ?
             WHERE profile_id = ?
             """,
-            (profile_id,),
+            (today, profile_id),
         )
 
     elif category == "kink":
@@ -129,10 +138,10 @@ def _update_streaks(cur, profile_id, category, is_required):
             UPDATE profile_streaks
             SET
                 kink_streak = kink_streak + 1,
-                last_kink_day = DATE('now')
+                last_kink_day = ?
             WHERE profile_id = ?
             """,
-            (profile_id,),
+            (today, profile_id),
         )
 
     elif category == "explicit":
@@ -141,8 +150,8 @@ def _update_streaks(cur, profile_id, category, is_required):
             UPDATE profile_streaks
             SET
                 explicit_streak = explicit_streak + 1,
-                last_explicit_day = DATE('now')
+                last_explicit_day = ?
             WHERE profile_id = ?
             """,
-            (profile_id,),
+            (today, profile_id),
         )

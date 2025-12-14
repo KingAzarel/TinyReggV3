@@ -4,9 +4,10 @@ from discord import app_commands
 
 from core.db import get_connection
 from core.users import ensure_user
-from core.presence import emit_presence_changed, switch_active_person
-from core.presence import switch_active_person
-
+from core.presence import (
+    emit_presence_changed,
+    switch_active_person,
+)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -46,36 +47,28 @@ def create_person(user_id: str, data: dict) -> int:
         ),
     )
 
-    pid = cur.lastrowid
+    profile_id = cur.lastrowid
     conn.commit()
     conn.close()
-    return pid
+    return profile_id
 
 
 # ─────────────────────────────────────────────────────────────
 # Introduce Flow
 # ─────────────────────────────────────────────────────────────
 
-class IntroduceFlow(discord.ui.View):
+class IntroduceFlow:
     """
     Gentle, step-by-step introduction.
     Everything is optional.
     Skipping safety questions defaults to cloudy.
     """
 
-    def __init__(self, bot, interaction: discord.Interaction):
-        super().__init__(timeout=600)
-
+    def __init__(self, bot: commands.Bot, interaction: discord.Interaction):
         self.bot = bot
         self.interaction = interaction
         self.user_id = str(interaction.user.id)
 
-        # Persistent state (CRITICAL)
-        from core.users import get_or_create_user, get_or_create_profile
-        get_or_create_user(self.user_id)
-        self.profile = get_or_create_profile(self.user_id)
-
-        # Local flow data
         self.data = {
             "name": None,
             "age_context": "cloudy",
@@ -87,26 +80,26 @@ class IntroduceFlow(discord.ui.View):
             "nickname": None,
         }
 
-
     # ─────────────────────────────────────────────
     # Utilities
     # ─────────────────────────────────────────────
 
-    async def ask(self, prompt: str):
+    async def ask(self, prompt: str) -> str:
         await self.interaction.followup.send(prompt, ephemeral=True)
+
         msg = await self.bot.wait_for(
             "message",
-            check=lambda m: m.author.id == self.interaction.user.id
-            and m.channel == self.interaction.channel,
+            check=lambda m: (
+                m.author.id == self.interaction.user.id
+                and m.channel == self.interaction.channel
+            ),
             timeout=300,
         )
         return msg.content.strip()
 
     async def yes_no(self, prompt: str) -> int:
-        reply = (await self.ask(prompt + " (yes / no — or skip)")).lower()
-        if reply.startswith("y"):
-            return 1
-        return 0
+        reply = (await self.ask(f"{prompt} (yes / no — or skip)")).lower()
+        return 1 if reply.startswith("y") else 0
 
     # ─────────────────────────────────────────────
     # Flow
@@ -122,10 +115,7 @@ class IntroduceFlow(discord.ui.View):
         name = await self.ask(
             "Who am I talking to right now?\n(You can say a name — or type `skip`.)"
         )
-        if name.lower() != "skip":
-            self.data["name"] = name
-        else:
-            self.data["name"] = "Someone Soft"
+        self.data["name"] = name if name.lower() != "skip" else "Someone Soft"
 
         # Age context
         age = await self.ask(
@@ -134,8 +124,6 @@ class IntroduceFlow(discord.ui.View):
         )
         if age.lower() in ("adult", "regressive"):
             self.data["age_context"] = age.lower()
-        else:
-            self.data["age_context"] = "cloudy"
 
         # Opt-ins (only if adult)
         if self.data["age_context"] == "adult":
@@ -171,10 +159,10 @@ class IntroduceFlow(discord.ui.View):
         if nickname.lower() != "skip":
             self.data["nickname"] = nickname
 
-        # Create + activate
-        pid = create_person(self.user_id, self.data)
-        switch_active_person(self.user_id, pid)
-        await emit_presence_changed(self.bot, self.user_id, pid)
+        # Persist + activate
+        profile_id = create_person(self.user_id, self.data)
+        switch_active_person(self.user_id, profile_id)
+        await emit_presence_changed(self.bot, self.user_id, profile_id)
 
         await self.interaction.followup.send(
             "Thank you for trusting me with that.\n\n"
@@ -182,8 +170,6 @@ class IntroduceFlow(discord.ui.View):
             "Whenever you’re ready, try `/tasks`.",
             ephemeral=True,
         )
-
-        self.stop()
 
 
 # ─────────────────────────────────────────────────────────────
@@ -202,10 +188,7 @@ class Introduce(commands.Cog):
         user_id = str(interaction.user.id)
         ensure_user(user_id)
 
-        await interaction.response.send_message(
-            "I’ll stay with you while we do this.",
-            ephemeral=True,
-        )
+        await interaction.response.defer(ephemeral=True)
 
         flow = IntroduceFlow(self.bot, interaction)
         await flow.start()

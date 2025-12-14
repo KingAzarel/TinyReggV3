@@ -76,28 +76,25 @@ EXPLICIT_MESSAGES = [
 # PUBLIC API
 # ─────────────────────────────────────────────
 
-def get_completion_message(category, is_required=False):
+def get_completion_message(category: str, is_required: bool = False) -> str:
     """
     Returns a raw message template.
-    Tokens and names are injected later.
+    Token values and names are injected later.
     """
 
     if is_required:
         return random.choice(REQUIRED_MESSAGES)
 
-    if category == "core":
-        return random.choice(CORE_MESSAGES)
-
-    if category == "regressive":
-        return random.choice(REGRESSIVE_MESSAGES)
-
-    if category == "intimacy":
-        return random.choice(INTIMACY_MESSAGES)
-
-    if category == "kink":
-        return random.choice(KINK_MESSAGES)
-
-    if category == "explicit":
-        return random.choice(EXPLICIT_MESSAGES)
-
-    return "That’s done. (+{tokens} tokens)"
+    match category:
+        case "core":
+            return random.choice(CORE_MESSAGES)
+        case "regressive":
+            return random.choice(REGRESSIVE_MESSAGES)
+        case "intimacy":
+            return random.choice(INTIMACY_MESSAGES)
+        case "kink":
+            return random.choice(KINK_MESSAGES)
+        case "explicit":
+            return random.choice(EXPLICIT_MESSAGES)
+        case _:
+            return "Task completed. (+{tokens} tokens)"

@@ -10,27 +10,24 @@ from dotenv import load_dotenv
 from core.db import initialize_db
 from core import admin_services
 from core.presence import get_active_profile
-from utils import BOT_OWNER_ID, MAIN_GUILD_ID
 
 # ─────────────────────────────────────────────────────────────
 # CONSTANTS
 # ─────────────────────────────────────────────────────────────
 
-# BELLA_USER_ID = "868623435650175046"
-
 WATCHING_ACTIVITY = discord.Activity(
     type=discord.ActivityType.watching,
-    name="Watching Over You 💜"
+    name="Watching over you 💜"
 )
 
 LISTENING_ACTIVITY = discord.Activity(
     type=discord.ActivityType.listening,
-    name="Listening Out For You 💜"
+    name="Listening out for you 💜"
 )
 
 CLOUDY_ACTIVITY = discord.Activity(
     type=discord.ActivityType.playing,
-    name="Take your time, I’m here, Your Regg is Here."
+    name="Take your time — Regg is here."
 )
 
 # ─────────────────────────────────────────────────────────────
@@ -38,10 +35,12 @@ CLOUDY_ACTIVITY = discord.Activity(
 # ─────────────────────────────────────────────────────────────
 
 load_dotenv()
+
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
     raise RuntimeError("Missing DISCORD_TOKEN environment variable")
 
+PRESENCE_OWNER_ID = os.getenv("PRESENCE_OWNER_ID")  # Bella or whoever controls presence
 
 # ─────────────────────────────────────────────────────────────
 # LOGGING
@@ -66,7 +65,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.guilds = True
 intents.messages = True
-intents.message_content = True  # enabled intentionally
+intents.message_content = True  # intentional
 
 # ─────────────────────────────────────────────────────────────
 # BOT DEFINITION
@@ -115,9 +114,6 @@ bot.remove_tokens = admin_services.remove_tokens
 
 @bot.tree.error
 async def on_app_command_error(interaction: discord.Interaction, error: Exception):
-    if isinstance(error, app_commands.CommandNotFound):
-        return
-
     if interaction.response.is_done():
         return
 
@@ -156,29 +152,19 @@ async def on_ready():
 async def presence_watcher():
     """
     Presence logic:
-    - If the configured presence owner is in Cloudy → override activity
-    - Else:
-        - Idle → Listening out for you
-        - Online → Watching over you
+    - If presence owner is in Cloudy → Cloudy activity
+    - Else default watching/listening
     """
 
     is_cloudy = False
-    owner_id = os.getenv("PRESENCE_OWNER_ID")
 
-    if not owner_id:
-        # No owner configured → default presence only
-        log.debug("PRESENCE_OWNER_ID not set; skipping cloudy check")
-    else:
+    if PRESENCE_OWNER_ID:
         try:
-            active = get_active_profile(str(owner_id))
-            if active and active.get("age_context") == "cloudy":
+            profile = get_active_profile(str(PRESENCE_OWNER_ID))
+            if profile and profile["age_context"] == "cloudy":
                 is_cloudy = True
         except Exception as e:
-            log.warning(f"Presence watcher failed to read profile: {e}")
-
-    # ─────────────────────────────────────────────
-    # Apply presence (only one branch per loop)
-    # ─────────────────────────────────────────────
+            log.warning(f"Presence watcher error: {e}")
 
     if is_cloudy:
         await bot.change_presence(
@@ -187,17 +173,10 @@ async def presence_watcher():
         )
         return
 
-    if bot.status == discord.Status.idle:
-        await bot.change_presence(
-            status=discord.Status.idle,
-            activity=LISTENING_ACTIVITY
-        )
-    else:
-        await bot.change_presence(
-            status=discord.Status.online,
-            activity=WATCHING_ACTIVITY
-        )
-
+    await bot.change_presence(
+        status=discord.Status.online,
+        activity=WATCHING_ACTIVITY
+    )
 
 @presence_watcher.before_loop
 async def before_presence_watcher():

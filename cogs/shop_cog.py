@@ -5,8 +5,6 @@ from discord import app_commands
 from core.presence import get_active_profile
 from core.reward_engine import generate_reward
 from shop.rewards import REWARDS
-from core.presence import switch_active_person
-
 
 
 class ShopCog(commands.Cog):
@@ -26,7 +24,8 @@ class ShopCog(commands.Cog):
 
         if not profile:
             await interaction.response.send_message(
-                "I don’t know who’s here right now. Try `/p switch` or `/p cloudy`.",
+                "I don’t know who’s here right now.\n"
+                "Try `/p introduce`, `/p switch`, or `/p cloudy`.",
                 ephemeral=True,
             )
             return
@@ -34,20 +33,17 @@ class ShopCog(commands.Cog):
         available = []
 
         for key, reward in REWARDS.items():
-            if not self._reward_allowed(profile, reward):
-                continue
-            available.append((key, reward))
+            if self._reward_allowed(profile, reward):
+                available.append((key, reward))
 
         if not available:
             await interaction.response.send_message(
-                "Nothing available for who’s here right now.",
+                f"Nothing available right now for **{profile['name']}**.",
                 ephemeral=True,
             )
             return
 
-        lines = [
-            f"**Available rewards for {profile['name']}**\n"
-        ]
+        lines = [f"**Available rewards for {profile['name']}**\n"]
 
         for key, reward in available:
             lines.append(
@@ -74,6 +70,13 @@ class ShopCog(commands.Cog):
         if not profile:
             await interaction.response.send_message(
                 "I don’t know who’s here right now.",
+                ephemeral=True,
+            )
+            return
+
+        if item_key not in REWARDS:
+            await interaction.response.send_message(
+                "That reward doesn’t exist.",
                 ephemeral=True,
             )
             return

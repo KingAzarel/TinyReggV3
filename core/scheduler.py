@@ -13,7 +13,7 @@ class MorningScheduler(commands.Cog):
     """
     Morning Orchestrator:
     - Runs once per day at the set time
-    - Prompts Bella to choose who is fronting
+    - Prompts each user to choose who is fronting
     - Does NOT assign tasks
     """
 
@@ -32,24 +32,24 @@ class MorningScheduler(commands.Cog):
         if not (now.hour == 6 and now.minute == 0):
             return
 
-        today = str(now.date())
+        today = now.date().isoformat()
 
         if self._already_prompted_today(today):
             return
 
         self._mark_prompted(today)
 
-        from core.db import get_connection
-
         conn = get_connection()
         cur = conn.cursor()
 
         # Fetch ALL users who have started
-        cur.execute("""
+        cur.execute(
+            """
             SELECT user_id
             FROM users
             WHERE has_started = 1
-        """)
+            """
+        )
         users = cur.fetchall()
         conn.close()
 
@@ -71,10 +71,10 @@ class MorningScheduler(commands.Cog):
                     "You can choose a profile, create a new one, or stay in **Cloudy Mode**.\n"
                     "Cloudy Mode still counts toward streaks and rewards."
                 ),
-                color=purple_doll_colors["accent"]
+                color=purple_doll_colors["accent"],
             )
 
-            view = FrontingSelectionView(user_id=user_id)
+            view = FrontingSelectionView(user_id=str(user_id))
 
             try:
                 await user.send(embed=embed, view=view)
@@ -88,45 +88,51 @@ class MorningScheduler(commands.Cog):
         conn = get_connection()
         cur = conn.cursor()
 
-        cur.execute("""
-            SELECT value
+        cur.execute(
+            """
+            SELECT last_reset_date
             FROM task_reset_state
             WHERE id = 1
-        """)
+            """
+        )
         row = cur.fetchone()
         conn.close()
 
         if not row:
             return False
 
-        return row["value"] == today
+        return row["last_reset_date"] == today
 
     def _mark_prompted(self, today: str):
         conn = get_connection()
         cur = conn.cursor()
 
-        cur.execute("""
+        cur.execute(
+            """
             INSERT INTO task_reset_state (id, last_reset_date)
             VALUES (1, ?)
-            ON CONFLICT(id) DO UPDATE SET last_reset_date = excluded.last_reset_date
-        """, (today,))
+            ON CONFLICT(id)
+            DO UPDATE SET last_reset_date = excluded.last_reset_date
+            """,
+            (today,),
+        )
 
         conn.commit()
         conn.close()
 
 
 # ---------------------------------------------------------
-# Placeholder View (wired next)
+# Fronting Selection View (wired elsewhere)
 # ---------------------------------------------------------
 class FrontingSelectionView(discord.ui.View):
     """
-    This view will be wired to:
-    - profile selection
-    - profile creation
-    - Cloudy mode
+    Orchestration-only view.
+    Actual buttons/selects are wired in presence cogs.
     """
-    def __init__(self):
+
+    def __init__(self, user_id: str):
         super().__init__(timeout=None)
+        self.user_id = user_id
 
 
 async def setup(bot):

@@ -3,7 +3,6 @@ from discord.ext import commands
 from discord import app_commands
 
 from core.db import get_connection
-from core.presence import switch_active_person
 
 
 class MyCodesCog(commands.Cog):

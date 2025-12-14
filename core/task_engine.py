@@ -1,10 +1,19 @@
 # core/task_engine.py
 
 import random
+from datetime import date
 from core import task_pools
 from core.db import get_connection
 
 MAX_DAILY_TASKS = 10
+
+
+# ─────────────────────────────────────────────
+# DATE (single source of truth)
+# ─────────────────────────────────────────────
+
+def _today() -> str:
+    return date.today().isoformat()
 
 
 # ─────────────────────────────────────────────
@@ -35,6 +44,7 @@ def _get_profile(profile_id):
 
 
 def _get_existing_task_keys(profile_id):
+    today = _today()
     conn = get_connection()
     cur = conn.cursor()
     cur.execute(
@@ -42,16 +52,37 @@ def _get_existing_task_keys(profile_id):
         SELECT task_key
         FROM assigned_tasks
         WHERE profile_id = ?
-          AND date = DATE('now')
+          AND date = ?
         """,
-        (profile_id,),
+        (profile_id, today),
     )
     rows = cur.fetchall()
     conn.close()
     return {r["task_key"] for r in rows}
 
 
+def _explicit_already_assigned(profile_id) -> bool:
+    today = _today()
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute(
+        """
+        SELECT 1
+        FROM assigned_tasks
+        WHERE profile_id = ?
+          AND category = 'explicit'
+          AND date = ?
+        LIMIT 1
+        """,
+        (profile_id, today),
+    )
+    exists = cur.fetchone() is not None
+    conn.close()
+    return exists
+
+
 def _insert_tasks(profile_id, tasks):
+    today = _today()
     conn = get_connection()
     cur = conn.cursor()
 
@@ -60,10 +91,11 @@ def _insert_tasks(profile_id, tasks):
             """
             INSERT OR IGNORE INTO assigned_tasks
             (profile_id, date, task_key, category, is_required, hidden_until_complete)
-            VALUES (?, DATE('now'), ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
             """,
             (
                 profile_id,
+                today,
                 task["key"],
                 task["category"],
                 task["required"],
@@ -76,24 +108,29 @@ def _insert_tasks(profile_id, tasks):
 
 
 def _remove_uncompleted_unsafe(profile_id, allowed_categories):
+    if not allowed_categories:
+        return
+
+    today = _today()
+    placeholders = ",".join("?" * len(allowed_categories))
+
     conn = get_connection()
     cur = conn.cursor()
-
     cur.execute(
         f"""
         DELETE FROM assigned_tasks
         WHERE profile_id = ?
-          AND date = DATE('now')
+          AND date = ?
           AND task_key NOT IN (
               SELECT task_key
               FROM task_history
               WHERE profile_id = ?
                 AND completed = 1
-                AND date = DATE('now')
+                AND date = ?
           )
-          AND category NOT IN ({",".join("?" * len(allowed_categories))})
+          AND category NOT IN ({placeholders})
         """,
-        (profile_id, profile_id, *allowed_categories),
+        (profile_id, today, profile_id, today, *allowed_categories),
     )
 
     conn.commit()
@@ -117,7 +154,7 @@ def generate_daily_tasks(profile_id):
     existing = _get_existing_task_keys(profile_id)
     tasks = []
 
-    # Required tasks always
+    # Required tasks
     for t in task_pools.get_required_tasks():
         if t["key"] not in existing:
             tasks.append(t)
@@ -127,9 +164,8 @@ def generate_daily_tasks(profile_id):
         _insert_tasks(profile_id, tasks)
         return tasks
 
-    explicit_used = False
+    explicit_used = _explicit_already_assigned(profile_id)
 
-    # Pool weights by context
     if age in ("cloudy", "regressive"):
         weighted = [
             ("basic", 35),
@@ -137,9 +173,7 @@ def generate_daily_tasks(profile_id):
             ("regressive", 25),
             ("small_clean", 10),
         ]
-        allowed = {"required", "basic", "fun", "regressive", "small_clean"}
-
-    else:  # adult
+    else:
         weighted = [
             ("basic", 25),
             ("fun", 20),
@@ -147,25 +181,11 @@ def generate_daily_tasks(profile_id):
             ("medium_clean", 15),
             ("heavy_clean", 5),
         ]
-        allowed = {
-            "required",
-            "basic",
-            "fun",
-            "small_clean",
-            "medium_clean",
-            "heavy_clean",
-        }
-
         if intimacy_ok:
             weighted.append(("intimacy", 10))
-            allowed.add("intimacy")
         if kink_ok:
             weighted.append(("kink", 7))
-            allowed.add("kink")
-        if explicit_ok:
-            allowed.add("explicit")
 
-    # Fill remaining slots
     while remaining > 0:
         pool = _weighted_choice(weighted)
 
@@ -263,7 +283,8 @@ def request_tasks_from_pool(profile_id, pool, count=1):
         elif pool == "kink" and age == "adult" and profile["kink_opt_in"]:
             tasks += task_pools.get_kink_tasks()
         elif pool == "explicit" and age == "adult" and profile["explicit_opt_in"]:
-            tasks += task_pools.get_explicit_tasks()
+            if not _explicit_already_assigned(profile_id):
+                tasks += task_pools.get_explicit_tasks()
 
     _insert_tasks(profile_id, tasks)
     return tasks
@@ -273,7 +294,7 @@ def request_tasks_from_pool(profile_id, pool, count=1):
 # TASK ACCESS + COMPLETION
 # ─────────────────────────────────────────────
 
-def get_tasks_for_profile(profile_id: int, date: str):
+def get_tasks_for_profile(profile_id: int, date_str: str):
     conn = get_connection()
     cur = conn.cursor()
     cur.execute(
@@ -283,7 +304,7 @@ def get_tasks_for_profile(profile_id: int, date: str):
         WHERE profile_id = ?
           AND date = ?
         """,
-        (profile_id, date),
+        (profile_id, date_str),
     )
     rows = cur.fetchall()
     conn.close()
@@ -291,6 +312,7 @@ def get_tasks_for_profile(profile_id: int, date: str):
 
 
 def complete_task_for_profile(profile_id: int, task_key: str):
+    today = _today()
     conn = get_connection()
     cur = conn.cursor()
 
@@ -298,9 +320,9 @@ def complete_task_for_profile(profile_id: int, task_key: str):
         """
         INSERT OR REPLACE INTO task_history
         (profile_id, date, task_key, completed)
-        VALUES (?, DATE('now'), ?, 1)
+        VALUES (?, ?, ?, 1)
         """,
-        (profile_id, task_key),
+        (profile_id, today, task_key),
     )
 
     conn.commit()

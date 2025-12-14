@@ -8,7 +8,6 @@ from core.presence import (
     set_active_profile,
     set_cloudy_mode,
 )
-from core.presence import switch_active_person
 
 
 class PresenceCog(commands.Cog):
@@ -18,7 +17,10 @@ class PresenceCog(commands.Cog):
     # ─────────────────────────────────────────────
     # /p help
     # ─────────────────────────────────────────────
-    @app_commands.command(name="p_help", description="How to use TinyRegg")
+    @app_commands.command(
+        name="p_help",
+        description="How to use TinyRegg"
+    )
     async def p_help(self, interaction: discord.Interaction):
         await interaction.response.send_message(
             "**TinyRegg — Presence Commands**\n\n"
@@ -29,6 +31,7 @@ class PresenceCog(commands.Cog):
             "You can change things at any time. Nothing is permanent.",
             ephemeral=True,
         )
+
     # ─────────────────────────────────────────────
     # /p switch
     # ─────────────────────────────────────────────
@@ -68,7 +71,7 @@ class PresenceCog(commands.Cog):
             options=options,
         )
 
-        async def callback(interact: discord.Interaction):
+        async def on_select(interact: discord.Interaction):
             profile_id = int(select.values[0])
             set_active_profile(user_id, profile_id)
             await interact.response.send_message(
@@ -76,8 +79,9 @@ class PresenceCog(commands.Cog):
                 ephemeral=True,
             )
 
-        select.callback = callback
-        view = discord.ui.View()
+        select.callback = on_select
+
+        view = discord.ui.View(timeout=60)
         view.add_item(select)
 
         await interaction.response.send_message(

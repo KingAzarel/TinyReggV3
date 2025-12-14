@@ -155,7 +155,7 @@ def get_required_tasks():
 
 def get_basic_care():
     k, t = random.choice(list(BASIC_CARE.items()))
-    return [_task(k, t, "core")]
+    return [_task(k, t, "basic")]
 
 
 def get_fun_tasks():
@@ -165,17 +165,17 @@ def get_fun_tasks():
 
 def get_small_cleaning():
     k, t = random.choice(list(SMALL_CLEANING.items()))
-    return [_task(k, t, "core")]
+    return [_task(k, t, "small_clean")]
 
 
 def get_medium_cleaning():
     k, t = random.choice(list(MEDIUM_CLEANING.items()))
-    return [_task(k, t, "core")]
+    return [_task(k, t, "medium_clean")]
 
 
 def get_heavy_cleaning():
     k, t = random.choice(list(HEAVY_CLEANING.items()))
-    return [_task(k, t, "core")]
+    return [_task(k, t, "heavy_clean")]
 
 
 def get_regressive_tasks():

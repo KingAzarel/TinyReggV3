@@ -1,15 +1,14 @@
 import discord
 from discord.ext import commands, tasks
 from discord import app_commands
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from core.db import get_connection
-from core.presence import switch_active_person
-
+from utils import BOT_OWNER_ID
 
 
 # ─────────────────────────────────────────────
-# Anniversary / Milestone system (Owner-side)
+# Anniversary / Milestone system (Account-level)
 # ─────────────────────────────────────────────
 
 class MilestonesCog(commands.Cog):
@@ -24,18 +23,13 @@ class MilestonesCog(commands.Cog):
         name="add_milestone",
         description="Owner: add an anniversary or important date"
     )
-    @app_commands.checks.has_permissions(administrator=True)
+    @app_commands.check(lambda i: i.user.id == BOT_OWNER_ID)
     async def add_milestone(
         self,
         interaction: discord.Interaction,
         title: str,
         date: str,  # YYYY-MM-DD
     ):
-        """
-        Example:
-        /add_milestone "Our 1 Year Anniversary" 2025-10-23
-        """
-
         try:
             target_date = datetime.strptime(date, "%Y-%m-%d").date()
         except ValueError:
@@ -59,7 +53,7 @@ class MilestonesCog(commands.Cog):
             VALUES (?, ?, ?, ?)
             """,
             (
-                None,  # account-level / relationship-level
+                None,
                 title,
                 target_date.isoformat(),
                 "yearly",
@@ -92,21 +86,29 @@ class MilestonesCog(commands.Cog):
         )
 
         milestones = cur.fetchall()
+
+        cur.execute(
+            """
+            SELECT DISTINCT user_id
+            FROM profiles
+            """
+        )
+        users = [row["user_id"] for row in cur.fetchall()]
+
         conn.close()
 
         for m in milestones:
             event_date = datetime.fromisoformat(m["datetime"]).date()
 
-            # Calculate next occurrence (yearly)
             next_event = event_date.replace(year=today.year)
             if next_event < today:
                 next_event = next_event.replace(year=today.year + 1)
 
             days_until = (next_event - today).days
 
-            # Notify only at gentle intervals
             if days_until in (30, 15, 7, 3, 1):
                 await self._send_countdown(
+                    users,
                     m["name"],
                     days_until,
                 )
@@ -114,25 +116,19 @@ class MilestonesCog(commands.Cog):
     # ─────────────────────────────────────────────
     # Delivery
     # ─────────────────────────────────────────────
-    async def _send_countdown(self, title: str, days: int):
-        """
-        Sends a soft, anticipatory message.
-        """
+    async def _send_countdown(self, user_ids, title: str, days: int):
         message = (
             f"💗 **Just a little reminder**\n\n"
             f"{days} days until **{title}**.\n\n"
             "No pressure. Just something sweet on the horizon."
         )
 
-        for guild in self.bot.guilds:
-            for member in guild.members:
-                if member.bot:
-                    continue
-
-                try:
-                    await member.send(message)
-                except discord.Forbidden:
-                    pass
+        for uid in user_ids:
+            try:
+                user = await self.bot.fetch_user(int(uid))
+                await user.send(message)
+            except (discord.Forbidden, discord.NotFound):
+                continue
 
     # ─────────────────────────────────────────────
     # SAFETY

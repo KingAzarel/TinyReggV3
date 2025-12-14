@@ -114,20 +114,18 @@ class BossCog(commands.Cog):
         conn.close()
 
     async def _announce_defeat(self, user_id: str, profile_name: str):
-        for guild in self.bot.guilds:
-            member = guild.get_member(int(user_id))
-            if not member:
-                continue
-
-            try:
-                await member.send(
-                    f"🏆 **Weekly Boss Defeated**\n\n"
-                    f"**{profile_name}** faced *{WEEKLY_BOSS['name']}*.\n\n"
-                    f"{WEEKLY_BOSS['message']}\n\n"
-                    f"+{WEEKLY_BOSS['reward_tokens']} tokens"
-                )
-            except discord.Forbidden:
-                pass
+        try:
+            user = await self.bot.fetch_user(int(user_id))
+            await user.send(
+                f"🏆 **Weekly Boss Defeated**\n\n"
+                f"**{profile_name}** faced *{WEEKLY_BOSS['name']}*.\n\n"
+                f"{WEEKLY_BOSS['message']}\n\n"
+                f"+{WEEKLY_BOSS['reward_tokens']} tokens"
+            )
+        except discord.Forbidden:
+            pass
+        except Exception:
+            logger.exception("Failed to DM boss defeat to user %s", user_id)
 
     @weekly_check.before_loop
     async def before_loop(self):

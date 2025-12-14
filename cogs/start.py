@@ -4,8 +4,6 @@ from discord.ext import commands
 
 from core.users import ensure_user
 from core.db import get_connection
-from core.presence import switch_active_person
-
 
 
 class StartCog(commands.Cog):
@@ -45,7 +43,10 @@ class StartCog(commands.Cog):
     # /start COMMAND
     # ------------------------------------------------------------
 
-    @app_commands.command(name="start", description="Begin your journey with TinyRegg")
+    @app_commands.command(
+        name="start",
+        description="Begin your journey with TinyRegg"
+    )
     async def start(self, interaction: discord.Interaction):
         user_id = str(interaction.user.id)
 
@@ -56,7 +57,7 @@ class StartCog(commands.Cog):
         if self._has_started(user_id):
             await interaction.response.send_message(
                 "You’ve already started 💜\n\n"
-                "If you want to switch who’s here or make changes, you can use `/p help`.",
+                "If you want to switch who’s here or make changes, use `/p help`.",
                 ephemeral=True,
             )
             return
@@ -85,7 +86,7 @@ class StartCog(commands.Cog):
                 "• Offer small daily tasks\n"
                 "• Encourage you without shame\n"
                 "• Track progress gently\n"
-                "• Give rewards that feel personal\n"
+                "• Give rewards that feel personal"
             ),
             inline=False,
         )
@@ -100,13 +101,15 @@ class StartCog(commands.Cog):
             inline=False,
         )
 
-        embed.set_footer(text="When you’re ready, let me know who I’m talking to.")
+        embed.set_footer(
+            text="When you’re ready, tell me who I’m talking to."
+        )
 
         # --------------------------------------------------------
-        # BUTTON → HANDOFF TO PRESENCE / INTRO
+        # BUTTON → START INTRODUCTION FLOW (CORRECTLY)
         # --------------------------------------------------------
 
-        view = discord.ui.View(timeout=None)
+        view = discord.ui.View(timeout=300)
 
         class IntroduceButton(discord.ui.Button):
             def __init__(self):
@@ -118,16 +121,15 @@ class StartCog(commands.Cog):
             async def callback(self, button_interaction: discord.Interaction):
                 from cogs.p_introduce import IntroduceFlow
 
-                view = IntroduceFlow(
+                await button_interaction.response.defer(ephemeral=True)
+
+                flow = IntroduceFlow(
                     bot=button_interaction.client,
                     interaction=button_interaction,
                 )
 
-                await button_interaction.response.send_message(
-                    content="Alright 💜\n\nLet’s start gently.",
-                    view=view,
-                    ephemeral=True,
-                )
+                # IMPORTANT: actually start the flow
+                await flow.start()
 
         view.add_item(IntroduceButton())
 
