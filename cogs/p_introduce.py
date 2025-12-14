@@ -65,10 +65,17 @@ class IntroduceFlow(discord.ui.View):
 
     def __init__(self, bot, interaction: discord.Interaction):
         super().__init__(timeout=600)
+
         self.bot = bot
         self.interaction = interaction
         self.user_id = str(interaction.user.id)
 
+        # Persistent state (CRITICAL)
+        from core.users import get_or_create_user, get_or_create_profile
+        get_or_create_user(self.user_id)
+        self.profile = get_or_create_profile(self.user_id)
+
+        # Local flow data
         self.data = {
             "name": None,
             "age_context": "cloudy",
@@ -79,6 +86,7 @@ class IntroduceFlow(discord.ui.View):
             "pronouns": None,
             "nickname": None,
         }
+
 
     # ─────────────────────────────────────────────
     # Utilities

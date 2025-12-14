@@ -116,9 +116,16 @@ class StartCog(commands.Cog):
                 )
 
             async def callback(self, button_interaction: discord.Interaction):
+                from cogs.p_introduce import IntroduceFlow
+
+                view = IntroduceFlow(
+                    bot=button_interaction.client,
+                    interaction=button_interaction,
+                )
+
                 await button_interaction.response.send_message(
-                    "Alright 💜\n\nLet’s take this one step at a time.\n"
-                    "Use `/p introduce` when you’re ready.",
+                    content="Alright 💜\n\nLet’s start gently.",
+                    view=view,
                     ephemeral=True,
                 )
 
