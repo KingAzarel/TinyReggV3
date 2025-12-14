@@ -40,7 +40,7 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
     raise RuntimeError("Missing DISCORD_TOKEN environment variable")
 
-PRESENCE_OWNER_ID = os.getenv("PRESENCE_OWNER_ID")  # Bella or whoever controls presence
+PRESENCE_OWNER_ID = os.getenv("PRESENCE_OWNER_ID")
 
 # ─────────────────────────────────────────────────────────────
 # LOGGING
@@ -65,10 +65,10 @@ intents = discord.Intents.default()
 intents.members = True
 intents.guilds = True
 intents.messages = True
-intents.message_content = True  # intentional
+intents.message_content = True
 
 # ─────────────────────────────────────────────────────────────
-# BOT DEFINITION
+# BOT
 # ─────────────────────────────────────────────────────────────
 
 class MyBot(commands.Bot):
@@ -109,7 +109,17 @@ bot.add_tokens = admin_services.add_tokens
 bot.remove_tokens = admin_services.remove_tokens
 
 # ─────────────────────────────────────────────────────────────
-# GLOBAL APP COMMAND ERROR HANDLER
+# CRITICAL FIX: PREFIX COMMANDS
+# ─────────────────────────────────────────────────────────────
+
+@bot.event
+async def on_message(message: discord.Message):
+    if message.author.bot:
+        return
+    await bot.process_commands(message)
+
+# ─────────────────────────────────────────────────────────────
+# APP COMMAND ERROR HANDLER
 # ─────────────────────────────────────────────────────────────
 
 @bot.tree.error
@@ -124,7 +134,7 @@ async def on_app_command_error(interaction: discord.Interaction, error: Exceptio
     log.exception("App command error", exc_info=error)
 
 # ─────────────────────────────────────────────────────────────
-# READY EVENT
+# READY
 # ─────────────────────────────────────────────────────────────
 
 @bot.event
@@ -150,12 +160,6 @@ async def on_ready():
 
 @tasks.loop(seconds=60)
 async def presence_watcher():
-    """
-    Presence logic:
-    - If presence owner is in Cloudy → Cloudy activity
-    - Else default watching/listening
-    """
-
     is_cloudy = False
 
     if PRESENCE_OWNER_ID:
@@ -166,16 +170,9 @@ async def presence_watcher():
         except Exception as e:
             log.warning(f"Presence watcher error: {e}")
 
-    if is_cloudy:
-        await bot.change_presence(
-            status=discord.Status.online,
-            activity=CLOUDY_ACTIVITY
-        )
-        return
-
     await bot.change_presence(
         status=discord.Status.online,
-        activity=WATCHING_ACTIVITY
+        activity=CLOUDY_ACTIVITY if is_cloudy else WATCHING_ACTIVITY
     )
 
 @presence_watcher.before_loop

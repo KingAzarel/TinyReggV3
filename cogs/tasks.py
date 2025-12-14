@@ -14,10 +14,6 @@ from core.users import ensure_user
 from core.presence import get_active_profile
 
 
-# ------------------------------------------------------------
-# Guards
-# ------------------------------------------------------------
-
 def has_started(user_id: str) -> bool:
     conn = get_connection()
     cur = conn.cursor()
@@ -27,48 +23,6 @@ def has_started(user_id: str) -> bool:
     return bool(row and row["has_started"])
 
 
-# ------------------------------------------------------------
-# Normalizer (THIS WAS MISSING)
-# ------------------------------------------------------------
-
-def normalize_tasks(rows):
-    """
-    Converts raw assigned_tasks rows into category buckets.
-
-    Input: list[sqlite3.Row]
-    Output: dict[str, dict[str, str]]
-    """
-
-    buckets = {
-        "required": {},
-        "core": {},
-        "intimacy": {},
-        "kink": {},
-        "explicit": {},
-    }
-
-    for r in rows:
-        # Defensive: ensure row behaves like a mapping
-        if not hasattr(r, "keys"):
-            continue
-
-        category = r["category"]
-        task_key = r["task_key"]
-
-        # Required tasks are grouped separately
-        if r["is_required"]:
-            buckets["required"][task_key] = task_key
-        else:
-            buckets.setdefault(category, {})[task_key] = task_key
-
-    return buckets
-
-
-
-# ------------------------------------------------------------
-# Task Button
-# ------------------------------------------------------------
-
 class TaskButton(discord.ui.Button):
     def __init__(self, profile_id: int, task_key: str):
         super().__init__(label="Complete", style=discord.ButtonStyle.primary)
@@ -76,20 +30,13 @@ class TaskButton(discord.ui.Button):
         self.task_key = task_key
 
     async def callback(self, interaction: discord.Interaction):
-        bot = interaction.client
-
-        complete_task_for_profile(
-            profile_id=self.profile_id,
-            task_key=self.task_key,
-        )
+        complete_task_for_profile(self.profile_id, self.task_key)
 
         profile = get_active_profile(str(interaction.user.id))
-        raw_tasks = get_tasks_for_profile(
+        tasks = get_tasks_for_profile(
             profile["profile_id"],
             date.today().isoformat(),
         )
-
-        tasks = normalize_tasks(raw_tasks)
 
         embed, view = build_tasks_embed_and_view(
             interaction.user.id,
@@ -99,10 +46,6 @@ class TaskButton(discord.ui.Button):
 
         await interaction.response.edit_message(embed=embed, view=view)
 
-
-# ------------------------------------------------------------
-# Embed Builder
-# ------------------------------------------------------------
 
 def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
     title_name = profile["nickname"] or profile["name"]
@@ -120,38 +63,16 @@ def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
             for text in items.values()
         )
 
-    embed.add_field(
-        name="Required",
-        value=section(tasks.get("required", {})),
-        inline=False,
-    )
+    embed.add_field("Required", section(tasks.get("required", {})), inline=False)
+    embed.add_field("Core", section(tasks.get("core", {})), inline=False)
 
-    embed.add_field(
-        name="Core",
-        value=section(tasks.get("core", {})),
-        inline=False,
-    )
-
-    if tasks.get("intimacy"):
-        embed.add_field(
-            name="Intimacy",
-            value=section(tasks["intimacy"]),
-            inline=False,
-        )
-
-    if tasks.get("kink"):
-        embed.add_field(
-            name="Kink",
-            value=section(tasks["kink"]),
-            inline=False,
-        )
-
-    if tasks.get("explicit"):
-        embed.add_field(
-            name="Explicit",
-            value=section(tasks["explicit"]),
-            inline=False,
-        )
+    for optional in ("intimacy", "kink", "explicit"):
+        if tasks.get(optional):
+            embed.add_field(
+                name=optional.capitalize(),
+                value=section(tasks[optional]),
+                inline=False,
+            )
 
     embed.set_footer(text="Tasks update as you complete them.")
 
@@ -159,32 +80,18 @@ def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
     seen = set()
 
     for category in tasks.values():
-        for task_key in category.keys():
+        for task_key in category:
             if task_key in seen:
                 continue
             seen.add(task_key)
-
-            view.add_item(
-                TaskButton(
-                    profile_id=profile["profile_id"],
-                    task_key=task_key,
-                )
-            )
+            view.add_item(TaskButton(profile["profile_id"], task_key))
 
     return embed, view
 
 
-# ------------------------------------------------------------
-# Cog
-# ------------------------------------------------------------
-
 class Tasks(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    # --------------------------------------------------------
-    # /tasks
-    # --------------------------------------------------------
 
     @app_commands.command(name="tasks", description="Show today’s tasks")
     async def tasks(self, interaction: discord.Interaction):
@@ -208,12 +115,10 @@ class Tasks(commands.Cog):
 
         generate_daily_tasks(profile["profile_id"])
 
-        raw_tasks = get_tasks_for_profile(
+        tasks = get_tasks_for_profile(
             profile["profile_id"],
             date.today().isoformat(),
         )
-
-        tasks = normalize_tasks(raw_tasks)
 
         embed, view = build_tasks_embed_and_view(
             interaction.user.id,
@@ -224,74 +129,6 @@ class Tasks(commands.Cog):
         await interaction.response.send_message(
             embed=embed,
             view=view,
-            ephemeral=True,
-        )
-
-    # --------------------------------------------------------
-    # /task_history
-    # --------------------------------------------------------
-
-    @app_commands.command(
-        name="task_history",
-        description="See recent task history"
-    )
-    async def task_history(self, interaction: discord.Interaction):
-        user_id = str(interaction.user.id)
-
-        if not has_started(user_id):
-            await interaction.response.send_message(
-                "Let’s start first 💜 Use `/start`.",
-                ephemeral=True,
-            )
-            return
-
-        profile = get_active_profile(user_id)
-        if not profile:
-            await interaction.response.send_message(
-                "I’m not sure who’s here yet.",
-                ephemeral=True,
-            )
-            return
-
-        conn = get_connection()
-        cur = conn.cursor()
-        cur.execute(
-            """
-            SELECT date, task_key, points_awarded
-            FROM task_history
-            WHERE profile_id = ?
-            ORDER BY date DESC
-            LIMIT 25
-            """,
-            (profile["profile_id"],),
-        )
-        rows = cur.fetchall()
-        conn.close()
-
-        if not rows:
-            await interaction.response.send_message(
-                "No task history yet.",
-                ephemeral=True,
-            )
-            return
-
-        name = profile["nickname"] or profile["name"]
-        embed = discord.Embed(
-            title=f"Task History — {name}",
-            color=discord.Color.from_rgb(160, 120, 200),
-        )
-
-        embed.add_field(
-            name="Recent",
-            value="\n".join(
-                f"• {r['date']} — `{r['task_key']}` (+{r['points_awarded']} tokens)"
-                for r in rows
-            ),
-            inline=False,
-        )
-
-        await interaction.response.send_message(
-            embed=embed,
             ephemeral=True,
         )
 
