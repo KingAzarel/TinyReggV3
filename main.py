@@ -156,23 +156,33 @@ async def on_ready():
 async def presence_watcher():
     """
     Presence logic:
-    - If Bella is in Cloudy → override everything
+    - If the configured presence owner is in Cloudy → override activity
     - Else:
         - Idle → Listening out for you
         - Online → Watching over you
     """
-    is_cloudy = False
 
-    try:
-        active = get_active_profile(os.getenv("PRESENCE_OWNER_ID")
-        if active and active["age_context"] == "cloudy":
-            is_cloudy = True
-    except Exception as e:
-        log.warning(f"Presence watcher failed to read profile: {e}")
+    is_cloudy = False
+    owner_id = os.getenv("PRESENCE_OWNER_ID")
+
+    if not owner_id:
+        # No owner configured → default presence only
+        log.debug("PRESENCE_OWNER_ID not set; skipping cloudy check")
+    else:
+        try:
+            active = get_active_profile(str(owner_id))
+            if active and active.get("age_context") == "cloudy":
+                is_cloudy = True
+        except Exception as e:
+            log.warning(f"Presence watcher failed to read profile: {e}")
+
+    # ─────────────────────────────────────────────
+    # Apply presence (only one branch per loop)
+    # ─────────────────────────────────────────────
 
     if is_cloudy:
         await bot.change_presence(
-            status=bot.status,
+            status=discord.Status.online,
             activity=CLOUDY_ACTIVITY
         )
         return
@@ -187,6 +197,7 @@ async def presence_watcher():
             status=discord.Status.online,
             activity=WATCHING_ACTIVITY
         )
+
 
 @presence_watcher.before_loop
 async def before_presence_watcher():
