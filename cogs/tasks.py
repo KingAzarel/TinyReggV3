@@ -31,32 +31,38 @@ def has_started(user_id: str) -> bool:
 # Normalizer (THIS WAS MISSING)
 # ------------------------------------------------------------
 
-def normalize_tasks(rows: list[dict]) -> dict:
+def normalize_tasks(rows):
     """
-    Converts task rows into:
-    {
-        "required": {task_key: text},
-        "core": {...},
-        "intimacy": {...},
-        "kink": {...},
-        "explicit": {...},
-    }
+    Converts raw assigned_tasks rows into category buckets.
+
+    Input: list[sqlite3.Row]
+    Output: dict[str, dict[str, str]]
     """
+
     buckets = {
         "required": {},
         "core": {},
-        "fun": {},
-        "regressive": {},
         "intimacy": {},
         "kink": {},
         "explicit": {},
     }
 
     for r in rows:
-        buckets.setdefault(r["category"], {})
-        buckets[r["category"]][r["task_key"]] = r["text"]
+        # Defensive: ensure row behaves like a mapping
+        if not hasattr(r, "keys"):
+            continue
+
+        category = r["category"]
+        task_key = r["task_key"]
+
+        # Required tasks are grouped separately
+        if r["is_required"]:
+            buckets["required"][task_key] = task_key
+        else:
+            buckets.setdefault(category, {})[task_key] = task_key
 
     return buckets
+
 
 
 # ------------------------------------------------------------
@@ -72,8 +78,7 @@ class TaskButton(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         bot = interaction.client
 
-        await complete_task_for_profile(
-            bot=bot,
+        complete_task_for_profile(
             profile_id=self.profile_id,
             task_key=self.task_key,
         )
@@ -151,9 +156,14 @@ def build_tasks_embed_and_view(user_id: int, profile: dict, tasks: dict):
     embed.set_footer(text="Tasks update as you complete them.")
 
     view = discord.ui.View(timeout=None)
+    seen = set()
 
     for category in tasks.values():
         for task_key in category.keys():
+            if task_key in seen:
+                continue
+            seen.add(task_key)
+
             view.add_item(
                 TaskButton(
                     profile_id=profile["profile_id"],
